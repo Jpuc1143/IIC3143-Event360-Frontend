@@ -13,6 +13,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/redirect" element={<Home />} />
         <Route path="/events" element={<Events />} />
       </Routes>
     </BrowserRouter>

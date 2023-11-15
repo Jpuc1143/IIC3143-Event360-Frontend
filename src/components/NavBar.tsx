@@ -1,32 +1,65 @@
+import { Link } from "react-router-dom"
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function NavBar() {
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
+  const callbackUri = process.env.REACT_APP_AUTH0_CALLBACK_URL;
+
+
   return(
-    <nav className="bg-white border-gray-200">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
-            <li>
-              <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 " aria-current="page">Home</a>
-            </li>
-            <li>
-              <a href="/events" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 " aria-current="page">Eventos</a>
-            </li>
-            <li>
-              <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 " aria-current="page">Mis Eventos</a>
-            </li>
-            <li>
-              <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 " aria-current="page">Dashboard</a>
-            </li>
-            <li>
-              <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 " aria-current="page">Mi Perfil</a>
-            </li>
-            <li>
-              <a href="/" className="block py-2 px-3 text-white md:hover:bg-transparent bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 " aria-current="page">Login</a>
-            </li>
+      <div className="p-4">
+          <ul className="font-medium flex flex-col p-8 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
+            <Link aria-current="page" to="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0">
+              Event360
+            </Link>
+            <Link aria-current="page" to="/events" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0">
+              Eventos
+            </Link>
+            <Link aria-current="page" to="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0">
+              Mis Eventos
+            </Link>
+            <Link aria-current="page" to="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0">
+              Dashboard
+            </Link>
+  
+            {!isAuthenticated && (
+              <li className="ml-auto">
+                <button
+                  type="button"
+                  onClick={() => loginWithRedirect()}
+                  aria-current="page"
+                  className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
+                >
+                  Iniciar Sesión
+                </button>
+              </li>
+            )}
+            {isAuthenticated && (
+              <div className="flex flex-row gap-4">
+                <li>
+                  <Link
+                    aria-current="page"
+                    to="/profile"
+                    className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
+                  >
+                    Mi Perfil
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => logout({logoutParams: { returnTo: callbackUri }})}
+                    aria-current="page"
+                    className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
+                  >
+                    Cerrar Sesión
+                  </button>
+                </li>
+              </div>
+            )}
           </ul>
         </div>
-      </div>
-    </nav>
     )
 }
