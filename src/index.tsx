@@ -12,6 +12,7 @@ const root = ReactDOM.createRoot(
 const domain: string = process.env.REACT_APP_AUTH0_DOMAIN || '';
 const clientId: string = process.env.REACT_APP_AUTH0_CLIENT_ID || '';
 const redirectUri: string = process.env.REACT_APP_AUTH0_CALLBACK_URL || '';
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE || '';
 
 root.render(
   <React.StrictMode>
@@ -20,7 +21,9 @@ root.render(
       clientId={clientId}
       authorizationParams={{
         redirect_uri: redirectUri,
+        audience: audience,
       }}
+      
     >
       <App />
     </Auth0Provider>
