@@ -9,9 +9,9 @@ const ENV = {
 
 const getApiUrl = () => {
   if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
-    return ENV.dev;
+    return ENV.dev.apiUrl;
   }
-  return ENV.prod;
+  return ENV.prod.apiUrl;
 };
 
 export default getApiUrl;
