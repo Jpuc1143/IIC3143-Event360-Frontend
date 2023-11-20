@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Events from './pages/Events';
+import Footer from './components/Footer';
 
 
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/redirect" element={<Home />} />
         <Route path="/events" element={<Events />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
     
   );
