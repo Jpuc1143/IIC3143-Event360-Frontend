@@ -15,6 +15,8 @@ const evento = {
 } as Event;
 
 export default function Home() {
+  const [events, setEvents] = useState<Event[]>([]);
+
   useEffect(() => {
     const getEvents = async () => {
       const { data } = await getRequest('/events', 'token');
@@ -22,9 +24,6 @@ export default function Home() {
     }
     getEvents();
   }, []);
-
-  const [events, setEvents] = useState<Event[]>([]);
-
 
   return (
     <div className="mx-16 my-8">

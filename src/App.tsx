@@ -16,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/redirect" element={<Home />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/my-events" element={<Events />} />
       </Routes>
       <Footer />
     </BrowserRouter>

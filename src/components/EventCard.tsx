@@ -1,8 +1,10 @@
 import event_img from '../assets/bellybeach.jpg';
 import { useAuth0 } from "@auth0/auth0-react";
+import { useLocation } from 'react-router';
 
 export default function EventCard({ event }: { event: Event }) {
     const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+    const { pathname } = useLocation();
 
     return (
         <div className="max-w-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl">
@@ -23,7 +25,7 @@ export default function EventCard({ event }: { event: Event }) {
             <div className='px-6 pb-2 '>
                 <span className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>Presencial</span>
             </div>
-            {isAuthenticated && (
+            {isAuthenticated && pathname !== '/my-events' && (
                 <div className='grid items-center mb-4 mx-6'>
                     <button className='px-8 py-2 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:'>Comprar</button>
                 </div>

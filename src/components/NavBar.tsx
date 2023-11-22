@@ -17,9 +17,11 @@ export default function NavBar() {
             <Link aria-current="page" to="/events" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0">
               Eventos
             </Link>
-            <Link aria-current="page" to="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0">
-              Mis Eventos
-            </Link>
+            {isAuthenticated && (
+              <Link aria-current="page" to="/my-events" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0">
+                Mis Eventos
+              </Link>
+            )}
             <Link aria-current="page" to="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0">
               Dashboard
             </Link>
