@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Events from './pages/Events';
 import Tickets from './pages/Tickets';
 import Orders from './pages/Orders';
+import Profile from './pages/user/index';
+import Footer from './components/Footer';
 
 
 
@@ -19,7 +21,9 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/tickets" element={<Tickets />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
     
   );
