@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Events from './pages/Events';
 import Profile from './pages/user/index';
+import Footer from './components/Footer';
 
 
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
     
   );
