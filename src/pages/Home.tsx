@@ -5,18 +5,18 @@ import { useEffect, useState } from "react";
 import { getRequest } from "../api/queries";
 
 const evento = {
+  id: 1,
   name: "DCCTarreo",
   organization: "Departamento en Ciencias de la Computación",
   event_type: "Presencial",
   description: "El DCC te invita a su tarreo",
-  date: "15/10/2021",
+  start_datetime: "15/10/2021",
+  end_datetime: "15/10/2021",
   location: "Sala de Eventos",
-  price: 1000,
 } as Event;
 
 export default function Home() {
-
-  
+  const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
     const getEvents = async () => {
@@ -26,14 +26,7 @@ export default function Home() {
     getEvents();
   }, []);
 
-  console.log(process.env.NODE_ENV);
-  console.log(process.env.REACT_APP_AUTH0_DOMAIN);
-  console.log(process.env.REACT_APP_AUTH0_CLIENT_ID);
-  console.log(process.env.REACT_APP_AUTH0_AUDIENCE);
-  console.log(process.env.REACT_APP_KOA_BACKEND_URL);
-
   const [events, setEvents] = useState<Event[]>([]);
-
 
   return (
     <div className="mx-16 my-8">
