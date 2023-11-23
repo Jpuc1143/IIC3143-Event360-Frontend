@@ -2,7 +2,7 @@ import event_img from '../assets/bellybeach.jpg';
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function EventCard({ event }: { event: Event }) {
-    const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+    const { isAuthenticated} = useAuth0();
 
     return (
         <div className="max-w-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl">

@@ -2,6 +2,7 @@
   "name": "iic3143-event360-frontend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@auth0/auth0-react": "^2.2.3",
     "@testing-library/jest-dom": "^5.17.0",
@@ -25,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "husky install",
+    "lint": "eslint --fix --ext .ts,.tsx ."
   },
   "eslintConfig": {
     "extends": [
@@ -46,6 +49,24 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^3.3.5"
+    "tailwindcss": "^3.3.5",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }
