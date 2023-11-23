@@ -21,7 +21,7 @@ export default function PaymentMock() {
     const postOrder = async () => {
       try {
         const accessToken = await getAccessTokenSilently();
-        await postRequest(`/events/${id}/orders`, {}, accessToken);
+        await postRequest(`/tickets`, {}, accessToken);
         
       } catch (error) {
         console.log(error);

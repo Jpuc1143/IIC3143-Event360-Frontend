@@ -11,21 +11,21 @@ type FormData = {
     name: string;
     organization: string;
     description: string;
-    event_type: string;
-    start_datetime: string;
-    end_datetime: string;
+    eventType: string;
+    startDate: string;
+    endDate: string;
     location: string;
     image: string;
-    merchantCode: 0;
+    merchantCode: string;
 };
 
 const formDataSchema = z.object({
     name: z.string().min(1, "El nombre es requerido"),
     organization: z.string().min(1, "La organización es requerida"),
     description: z.string().min(10, "La descripción es requerida"),
-    event_type: z.string().min(1, "El tipo de evento es requerido"),
-    start_datetime: z.string().refine((datetime) => !/^\s+$/.test(datetime), {message: "Fecha y hora de inicio inválida"}),
-    end_datetime: z.string().refine((datetime) => !/^\s+$/.test(datetime), {message: "Fecha y hora de término inválida"}),
+    eventType: z.string().min(1, "El tipo de evento es requerido"),
+    startDate: z.string().refine((datetime) => !/^\s+$/.test(datetime), {message: "Fecha y hora de inicio inválida"}),
+    endDate: z.string().refine((datetime) => !/^\s+$/.test(datetime), {message: "Fecha y hora de término inválida"}),
     location: z.string().min(1, "La ubicación es requerida"),
     image: z.string().min(1, "La imagen es requerida").refine(
         (image) => !/^\s+$/.test(image), {message: "Link inválido"})
@@ -35,11 +35,11 @@ const formDataSchema = z.object({
 export default function CreateEvent() {
     const { register, handleSubmit, formState: { errors }, watch } = useForm<FormData>();
     const navigate = useNavigate();
-    const { getAccessTokenSilently } = useAuth0();
+    const { user, getAccessTokenSilently } = useAuth0();
 
     const createEvent = async (newEvent: FormData) => {
         const accessToken = await getAccessTokenSilently();
-        const { data } = await postRequest('/users/me/events_organized', newEvent, accessToken);
+        const { data } = await postRequest('/events', newEvent, accessToken);
         if (data) {
             toast.success("Evento creado exitosamente");
             navigate("/my-organized-events");
@@ -50,6 +50,7 @@ export default function CreateEvent() {
 
     const onSubmit = (data: FormData) => {
         try {
+            data.merchantCode = '0';
             formDataSchema.parse(data);
             console.log(data);
             createEvent(data);
@@ -101,7 +102,7 @@ export default function CreateEvent() {
                 <div className="flex flex-col">
                     <label className="text-primary-dark text-lg">Tipo de evento</label>
                     <select
-                        {...register("event_type")}
+                        {...register("eventType")}
                         id='event_type' 
                         className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary" 
                     >
@@ -114,7 +115,7 @@ export default function CreateEvent() {
                 <div className="flex flex-col">
                     <label className="text-primary-dark text-lg">Fecha y Hora de Inicio</label>
                     <input
-                        {...register("start_datetime")}
+                        {...register("startDate")}
                         className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary" 
                         type="text"
                         placeholder={`Ej: ${currentDate} 17:00`}
@@ -123,7 +124,7 @@ export default function CreateEvent() {
                 <div className="flex flex-col">
                     <label className="text-primary-dark text-lg">Fecha y Hora de Término</label>
                     <input
-                        {...register("end_datetime")} 
+                        {...register("endDate")} 
                         className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary" 
                         type="text"
                         placeholder={`Ej: ${currentDate} 20:00`}

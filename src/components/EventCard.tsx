@@ -18,7 +18,7 @@ export default function EventCard({ event }: { event: Event }) {
             }}
         >
             <div className="max-w-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl">
-                <img className="w-full h-72 object-cover" src={event.image} alt={event.name} />
+                <img className="w-full h-72 object-cover" src={'https://scontent.cdninstagram.com/v/t39.30808-6/375866728_18384927592051728_9106154841496335470_n.jpg?stp=dst-jpg_e35_p640x640_sh0.08&_nc_ht=scontent.cdninstagram.com&_nc_cat=100&_nc_ohc=Pi9f2CotQ7kAX8PWZDt&edm=APs17CUAAAAA&ccb=7-5&oh=00_AfBmlfzziXjzxdphi5qb8ZlMMFqefTgqZ2m7kM9LlA0tvw&oe=65642694&_nc_sid=10d13b'} alt={event.name} />
                 <div className='px-6 py-4'>
                     <div className='mb-2'>
                         <h3 className='font-bold text-xl text-primary-dark'>
@@ -28,7 +28,7 @@ export default function EventCard({ event }: { event: Event }) {
                             {event.organization}
                         </div>
                         <span className='text-base font-bold'>
-                            {event.start_datetime}
+                            {event.startDate}
                         </span>
                     </div>
                 </div>

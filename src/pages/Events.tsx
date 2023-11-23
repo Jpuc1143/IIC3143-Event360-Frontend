@@ -10,10 +10,10 @@ const evento = {
   id: 1,
   name: "DCCTarreo",
   organization: "Departamento en Ciencias de la Computación",
-  event_type: "Presencial",
+  eventType: "Presencial",
   description: "El DCC te invita a su tarreo",
-  start_datetime: "15/10/2021",
-  end_datetime: "15/10/2021",
+  startDate: "15/10/2021",
+  endDate: "15/10/2021",
   location: "Sala de Eventos",
   image: 'https://scontent.cdninstagram.com/v/t39.30808-6/375866728_18384927592051728_9106154841496335470_n.jpg?stp=dst-jpg_e35_p640x640_sh0.08&_nc_ht=scontent.cdninstagram.com&_nc_cat=100&_nc_ohc=Pi9f2CotQ7kAX8PWZDt&edm=APs17CUAAAAA&ccb=7-5&oh=00_AfBmlfzziXjzxdphi5qb8ZlMMFqefTgqZ2m7kM9LlA0tvw&oe=65642694&_nc_sid=10d13b',
   merchantCode: 0,
@@ -30,13 +30,29 @@ export default function Events() {
     'Eventos';
 
   useEffect(() => {
-    const getEvents = async () => {
-      const accessToken = await getAccessTokenSilently();
-      const { data } = await getRequest('/events', accessToken);
-      if (data) setEvents(data);
+    if (pathname === '/my-events') {
+      const getEvents = async () => {
+        const accessToken = await getAccessTokenSilently();
+        const { data } = await getRequest('/users/me/events', accessToken);
+        if (data) setEvents(data);
+      }
+      getEvents();
+    } else if (pathname === '/my-organized-events') {
+      const getEvents = async () => {
+        const accessToken = await getAccessTokenSilently();
+        const { data } = await getRequest('/users/me/events_organized', accessToken);
+        if (data) setEvents(data);
+      }
+      getEvents();
+    } else {
+      const getEvents = async () => {
+        const accessToken = await getAccessTokenSilently();
+        const { data } = await getRequest('/events', accessToken);
+        if (data) setEvents(data);
+      }
+      getEvents();
     }
-    getEvents();
-  }, [getAccessTokenSilently]);
+  }, [pathname, getAccessTokenSilently]);
 
   return (
     <div className="mx-32">

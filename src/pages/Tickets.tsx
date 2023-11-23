@@ -30,7 +30,7 @@ export default function Tickets() {
 
   useEffect(() => {
     const getTickets = async () => {
-      const { data } = await getRequest(`/events/${id}`, 'token');
+      const { data } = await getRequest(`/events/${id}/eventtickets`, 'token');
       if (data) setTickets(data);
     }
     getTickets();
