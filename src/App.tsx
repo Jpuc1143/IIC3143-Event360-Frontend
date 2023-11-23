@@ -5,6 +5,10 @@ import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Events from './pages/Events';
 import CreateEvent from './pages/CreateEvent';
+import PaymentMock from './pages/PaymentMock';
+import Tickets from './pages/Tickets';
+import Orders from './pages/Orders';
+import Profile from './pages/user/index';
 import Footer from './components/Footer';
 import EditEvent from './pages/EditEvent';
 import ShowEvent from './pages/ShowEvent';
@@ -37,6 +41,10 @@ function App() {
         <Route path="/create-event" element={<CreateEvent />} />
         <Route path='/edit-event/:id' element={<EditEvent />} />
         <Route path='/view-event/:id' element={<ShowEvent />} />
+        <Route path="/payment/:id" element={<PaymentMock />} />
+        <Route path="/tickets" element={<Tickets />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <Footer />
     </BrowserRouter>

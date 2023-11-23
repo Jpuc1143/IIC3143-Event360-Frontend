@@ -1,6 +1,5 @@
 import getApiUrl from "../config/urlConfig";
 import { callApi } from "./callApi";
-import { useAuth0 } from "@auth0/auth0-react";
 
 export const getRequest = async (route: string, accessToken:string) => {
   const config = {

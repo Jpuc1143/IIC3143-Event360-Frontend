@@ -10,6 +10,7 @@ export default function EventCard({ event }: { event: Event }) {
     const redirect_path = 
         pathname === '/my-organized-events' ? '/edit-event' :
         '/view-event';
+    const { isAuthenticated} = useAuth0();
 
     return (
         <Link

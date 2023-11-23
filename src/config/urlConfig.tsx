@@ -3,7 +3,7 @@ const ENV = {
     apiUrl: "http://localhost:8080"
   },
   prod: {
-    apiUrl: "noneYet"
+    apiUrl: process.env.KOA_BACKEND_URL
   }
 };
 

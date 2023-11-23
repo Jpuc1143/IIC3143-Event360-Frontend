@@ -26,6 +26,8 @@ export default function Home() {
     getEvents();
   }, []);
 
+  const [events, setEvents] = useState<Event[]>([]);
+
   return (
     <div className="mx-16 my-8">
       <div className="flex flex-col items-center relative mb-16">
