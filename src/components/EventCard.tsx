@@ -1,4 +1,3 @@
-import event_img from '../assets/bellybeach.jpg';
 import { Link } from "react-router-dom"
 import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation } from 'react-router';
@@ -19,7 +18,7 @@ export default function EventCard({ event }: { event: Event }) {
             }}
         >
             <div className="max-w-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl">
-                <img className="w-full h-72 object-cover" src={event_img} alt={event.name} />
+                <img className="w-full h-72 object-cover" src={event.image} alt={event.name} />
                 <div className='px-6 py-4'>
                     <div className='mb-2'>
                         <h3 className='font-bold text-xl text-primary-dark'>

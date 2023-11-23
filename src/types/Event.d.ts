@@ -7,4 +7,6 @@ interface Event {
     start_datetime: string;
     end_datetime: string;
     location: string;
+    image: string;
+    merchantCode: 0;
 }
