@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getRequest } from "../api/queries";
 import { useLocation } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
+import { access } from "fs";
 
 const evento = {
   id: 1,
@@ -16,9 +17,10 @@ const evento = {
 } as Event;
 
 export default function Events() {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated, user } = useAuth0();
   const [events, setEvents] = useState<Event[]>([]);
   const { pathname } = useLocation();
+
   const title =
     pathname === '/my-events' ? 'Mis Eventos' :
     pathname === '/my-organized-events' ? 'Mis Eventos Organizados' :
@@ -26,11 +28,12 @@ export default function Events() {
 
   useEffect(() => {
     const getEvents = async () => {
-      const { data } = await getRequest(pathname, 'token');
+      const accessToken = await getAccessTokenSilently();
+      const { data } = await getRequest('/events', accessToken);
       if (data) setEvents(data);
     }
     getEvents();
-  }, [pathname]);
+  }, [getAccessTokenSilently]);
 
   return (
     <div className="mx-32">
