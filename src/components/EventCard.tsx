@@ -40,7 +40,7 @@ export default function EventCard({ event }: { event: Event }) {
                         <Link
                             className='px-8 py-2 bg-primary text-center hover:bg-primary-dark text-white rounded-full font-bold hover:'
                             to={{
-                                pathname: `/buy-ticket/${event.id}`,
+                                pathname: `/events/${event.id}`,
                             }}
                             state={{ event: event }}
                         >

@@ -58,7 +58,7 @@ export default function PaymentMock() {
           <div className='flex flex-row items-center gap-8'>
             {/* TODO: Poner las rutas correctas cuando esten */}
             <button onClick={() => navigate(`/events/${id}`, { replace: true })} className='w-32 h-8 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:'>Ver evento</button>
-            <button onClick={() => navigate('/events/me', { replace: true })} className='w-32 h-8 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:'>Mis eventos</button>
+            <button onClick={() => navigate('/my-events', { replace: true })} className='w-32 h-8 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:'>Mis eventos</button>
           </div>
         </div>
       )}

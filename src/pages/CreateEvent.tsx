@@ -39,7 +39,7 @@ export default function CreateEvent() {
 
     const createEvent = async (newEvent: FormData) => {
         const accessToken = await getAccessTokenSilently();
-        const { data } = await postRequest('/events', newEvent, accessToken);
+        const { data } = await postRequest('/users/me/events_organized', newEvent, accessToken);
         if (data) {
             toast.success("Evento creado exitosamente");
             navigate("/my-organized-events");
