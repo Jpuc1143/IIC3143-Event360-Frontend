@@ -15,6 +15,9 @@ const evento = {
 } as Event;
 
 export default function Home() {
+
+  
+
   useEffect(() => {
     const getEvents = async () => {
       const { data } = await getRequest('/events', 'token');
@@ -22,6 +25,12 @@ export default function Home() {
     }
     getEvents();
   }, []);
+
+  console.log(process.env.NODE_ENV);
+  console.log(process.env.REACT_APP_AUTH0_DOMAIN);
+  console.log(process.env.REACT_APP_AUTH0_CLIENT_ID);
+  console.log(process.env.REACT_APP_AUTH0_AUDIENCE);
+  console.log(process.env.REACT_APP_KOA_BACKEND_URL);
 
   const [events, setEvents] = useState<Event[]>([]);
 
