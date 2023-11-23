@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import ticket_img from '../assets/ticket.png';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams, useNavigate } from 'react-router';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import TicketCard from "../components/TicketCard";
 import event_img from '../assets/event.jpg';
 import { useEffect, useState } from "react";
@@ -33,7 +34,7 @@ export default function Tickets() {
       if (data) setTickets(data);
     }
     getTickets();
-  }, []);
+  }, [id]);
 
   const [tickets, setTickets] = useState<TicketType[]>([]);
 

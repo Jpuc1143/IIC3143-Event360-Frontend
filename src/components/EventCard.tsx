@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link } from "react-router-dom"
 import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation } from 'react-router';

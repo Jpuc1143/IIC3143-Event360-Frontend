@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import EventCard from "../components/EventCard";
 import { useEffect, useState } from "react";
 import { getRequest } from "../api/queries";

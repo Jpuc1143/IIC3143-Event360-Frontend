@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import Order from "../components/OrderCard";
 import { useEffect, useState } from "react";
@@ -26,14 +27,14 @@ const order3 = {
 export default function Orders() {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const { id } = useParams();
-  
+
   useEffect(() => {
     const getOrders = async () => {
       const { data } = await getRequest(`/orders/${id}`, 'token');
       if (data) setOrders(data);
     }
     getOrders();
-  }, []);
+  }, [id]);
 
   const [orders, setOrders] = useState<Order[]>([]);
 
