@@ -3,6 +3,7 @@ import Order from "../components/OrderCard";
 import { useEffect, useState } from "react";
 import { getRequest } from "../api/queries";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useParams, useNavigate } from 'react-router';
 
 const order1 = {
   id: 1,
@@ -26,7 +27,8 @@ export default function Orders() {
   useEffect(() => {
     const getOrders = async () => {
       const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-      const { data } = await getRequest('/events/' + user.id, 'token');
+      const { id } = useParams();
+      const { data } = await getRequest(`/orders/${id}`, 'token');
       if (data) setOrders(data);
     }
     getOrders();

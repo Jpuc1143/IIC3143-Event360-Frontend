@@ -2,6 +2,7 @@ import TicketCard from "../components/TicketCard";
 import event_img from '../assets/event.jpg';
 import { useEffect, useState } from "react";
 import { getRequest } from "../api/queries";
+import { useParams, useNavigate } from 'react-router';
 import { useAuth0 } from "@auth0/auth0-react";
 
 const ticket1 = {
@@ -27,7 +28,8 @@ export default function Tickets() {
     const getTickets = async () => {
       const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
       const event_id = window.location.href.split('/').pop(); //cambiar
-      const { data } = await getRequest('/events/' + event_id, 'token');
+      const { id } = useParams();
+      const { data } = await getRequest(`/events/${id}`, 'token');
       if (data) setTickets(data);
     }
     getTickets();

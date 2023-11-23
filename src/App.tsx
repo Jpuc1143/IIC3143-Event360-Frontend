@@ -20,11 +20,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/redirect" element={<Home />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/tickets/:id" element={<Tickets />} />
+        <Route path="/events/:id" element={<Tickets />} />
         <Route path="/orders/:id" element={<Orders />} />
         <Route path="/payment/:id" element={<PaymentMock />} />
-        <Route path="/tickets" element={<Tickets />} />
-        <Route path="/orders" element={<Orders />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
       <Footer />
