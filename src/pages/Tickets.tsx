@@ -24,11 +24,11 @@ domainWhiteList: "uc.cl",
 } as TicketType;
 
 export default function Tickets() {
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { id } = useParams();
+
   useEffect(() => {
     const getTickets = async () => {
-      const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-      const event_id = window.location.href.split('/').pop(); //cambiar
-      const { id } = useParams();
       const { data } = await getRequest(`/events/${id}`, 'token');
       if (data) setTickets(data);
     }

@@ -24,10 +24,11 @@ const order3 = {
 };
 
 export default function Orders() {
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { id } = useParams();
+  
   useEffect(() => {
     const getOrders = async () => {
-      const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-      const { id } = useParams();
       const { data } = await getRequest(`/orders/${id}`, 'token');
       if (data) setOrders(data);
     }
