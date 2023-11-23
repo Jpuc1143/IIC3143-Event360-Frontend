@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Events from './pages/Events';
+import PaymentMock from './pages/PaymentMock';
 
 
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/redirect" element={<Home />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/payment/:id" element={<PaymentMock />} />
       </Routes>
     </BrowserRouter>
     
