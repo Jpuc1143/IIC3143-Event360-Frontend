@@ -22,7 +22,7 @@ const order3 = {
   price: 1,
 };
 
-export default function Home() {
+export default function Orders() {
   useEffect(() => {
     const getOrders = async () => {
       const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <div className="mx-16 my-8">
       <div className="mx-32">
-        <h1 className="text-4xl font-bold my-8 text-primary">Órdenes</h1>
+        <h1 className="text-4xl font-bold my-8 text-primary">Tus Órdenes</h1>
         <div className="grid grid-cols-3 gap-8">
           {orders.map((order) => <Order order={order} />)}
           <Order order={order1} />

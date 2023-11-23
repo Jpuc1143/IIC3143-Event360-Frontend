@@ -1,5 +1,8 @@
 import TicketCard from "../components/TicketCard";
 import event_img from '../assets/event.jpg';
+import { useEffect, useState } from "react";
+import { getRequest } from "../api/queries";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ticket1 = {
   price: 10000,
@@ -20,12 +23,25 @@ domainWhiteList: "uc.cl",
 } as TicketType;
 
 export default function Tickets() {
+  useEffect(() => {
+    const getTickets = async () => {
+      const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+      const event_id = window.location.href.split('/').pop(); //cambiar
+      const { data } = await getRequest('/events/' + event_id, 'token');
+      if (data) setTickets(data);
+    }
+    getTickets();
+  }, []);
+
+  const [tickets, setTickets] = useState<TicketType[]>([]);
+
+
   return (
     <div className="mx-16 my-8">
-      <img className="w-full h-96 rounded-xl" src={event_img} alt="event-img"/>
       <div className="mx-32">
-        <h1 className="text-4xl font-bold my-8 text-primary">Tipos de Ticket</h1>
+        <h1 className="text-4xl font-bold my-8 text-primary">Tus Órdenes</h1>
         <div className="grid grid-cols-3 gap-8">
+          {tickets.map((ticket) => <TicketCard ticket={ticket} />)}
           <TicketCard ticket={ticket1} />
           <TicketCard ticket={ticket2} />
           <TicketCard ticket={ticket3} />

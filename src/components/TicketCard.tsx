@@ -1,8 +1,10 @@
 import ticket_img from '../assets/ticket.png';
 import { useAuth0 } from "@auth0/auth0-react";
+import { useParams, useNavigate } from 'react-router';
 
 export default function TicketCard({ ticket }: { ticket: TicketType }) {
     const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+    const navigate  = useNavigate();
     /* alt  ticket.name ???? */
     return (
         <div className="max-w-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl">
@@ -27,7 +29,7 @@ export default function TicketCard({ ticket }: { ticket: TicketType }) {
             </div>
             {isAuthenticated && (
                 <div className='grid items-center mb-4 mx-6'>
-                    <button className='px-8 py-2 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:'>Comprar</button>
+                    <button onClick={() => navigate(`/payment/${ticket.id}`, { replace: true })} className='w-32 h-8 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:'>Comprar ticket</button>
                 </div>
             )}
         </div>
