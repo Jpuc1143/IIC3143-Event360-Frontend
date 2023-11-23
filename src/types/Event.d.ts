@@ -1,9 +1,12 @@
 interface Event {
+    id: number;
     name: string;
     organization: string;
-    event_type: string;
+    eventType: string;
     description: string;
-    date: string;
+    startDate: string;
+    endDate: string;
     location: string;
-    price: number;
+    image: string;
+    merchantCode: 0;
 }

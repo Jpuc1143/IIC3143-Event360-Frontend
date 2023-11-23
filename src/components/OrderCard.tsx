@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function OrderCard({ order }: { order: Order }) {
@@ -18,11 +19,6 @@ export default function OrderCard({ order }: { order: Order }) {
                     </div>
                 </div>
             </div>
-            {isAuthenticated && (
-                <div className='grid items-center mb-4 mx-6'>
-                    <button className='px-8 py-2 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:'>Comprar</button>
-                </div>
-            )}
         </div>
     );
 }
