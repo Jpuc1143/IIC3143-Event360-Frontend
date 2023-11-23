@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { getRequest } from "../api/queries";
 
 const evento = {
+  id: 1,
   name: "DCCTarreo",
   organization: "Departamento en Ciencias de la Computación",
   event_type: "Presencial",
   description: "El DCC te invita a su tarreo",
-  date: "15/10/2021",
+  start_datetime: "15/10/2021",
+  end_datetime: "15/10/2021",
   location: "Sala de Eventos",
-  price: 1000,
 } as Event;
 
 export default function Home() {
