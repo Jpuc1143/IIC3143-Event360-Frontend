@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Events from './pages/Events';
 import Tickets from './pages/Tickets';
+import Orders from './pages/Orders';
 
 
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/redirect" element={<Home />} />
         <Route path="/events" element={<Events />} />
         <Route path="/tickets" element={<Tickets />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
     </BrowserRouter>
     
