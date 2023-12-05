@@ -1,15 +1,13 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import Home from './pages/Home';
-import Events from './pages/Events';
-import Tickets from './pages/Tickets';
-import Orders from './pages/Orders';
-import Profile from './pages/user/index';
-import Footer from './components/Footer';
-
-
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Home from "./pages/Home";
+import Events from "./pages/Events";
+import Tickets from "./pages/Tickets";
+import Orders from "./pages/Orders";
+import Profile from "./pages/user/index";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -25,7 +23,6 @@ function App() {
       </Routes>
       <Footer />
     </BrowserRouter>
-    
   );
 }
 

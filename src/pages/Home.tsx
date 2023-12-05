@@ -15,14 +15,11 @@ const evento = {
 } as Event;
 
 export default function Home() {
-
-  
-
   useEffect(() => {
     const getEvents = async () => {
-      const { data } = await getRequest('/events', 'token');
+      const { data } = await getRequest("/events", "token");
       if (data) setEvents(data);
-    }
+    };
     getEvents();
   }, []);
 
@@ -34,7 +31,6 @@ export default function Home() {
 
   const [events, setEvents] = useState<Event[]>([]);
 
-
   return (
     <div className="mx-16 my-8">
       <div className="flex flex-col items-center relative mb-16">
@@ -42,13 +38,19 @@ export default function Home() {
           <span className="text-primary-dark text-5xl font-bold">Event</span>
           <span className="text-primary-light text-5xl font-bold">360</span>
         </h1>
-        <img className="w-full max-h-96 rounded-xl object-cover" src={main_img} alt="main-img"/>
-        <SearchBar /> 
+        <img
+          className="w-full max-h-96 rounded-xl object-cover"
+          src={main_img}
+          alt="main-img"
+        />
+        <SearchBar />
       </div>
       <div className="mx-32">
         <h1 className="text-4xl font-bold my-8 text-primary">Eventos</h1>
         <div className="grid grid-cols-3 gap-8">
-          {events.map((event) => <EventCard event={event} />)}
+          {events.map((event) => (
+            <EventCard event={event} />
+          ))}
           <EventCard event={evento} />
           <EventCard event={evento} />
           <EventCard event={evento} />
@@ -57,5 +59,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }

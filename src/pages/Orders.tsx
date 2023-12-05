@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 import Order from "../components/OrderCard";
 
 const order1 = {
   id: 1,
-  status: 'pendiente',
+  status: "pendiente",
   price: 10000,
 };
 
 const order2 = {
   id: 2,
-  status: 'pagado',
+  status: "pagado",
   price: 2,
 };
 
 const order3 = {
   id: 3,
-  status: 'pendiente',
+  status: "pendiente",
   price: 1,
 };
 
