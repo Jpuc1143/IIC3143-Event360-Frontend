@@ -4,6 +4,9 @@ import { getRequest } from "../../api/queries";
 
 export default function Profile() {
   const [userEvents, setUserEvents] = useState([]);
+  // HARDCODE: Cambiar por condicion que denote si el usuario es o no organizador, y si ha enviado o no una solicitud
+  const isOrganizator = false
+  const sended = false
 
   const { user, getAccessTokenSilently } = useAuth0();
   useEffect(() => {
@@ -33,20 +36,35 @@ export default function Profile() {
           {user?.name}
         </div>
         <div className="text-center mt-2 font-light text-sm">{`@${user?.nickname}`}</div>
-        <div className="px-6 text-center mt-2 font-light text-sm">
+        <div className="text-center mt-2 font-light text-sm">{user?.email}</div>
+        <div className="px-6 text-center mt-2 font-light text-base">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            tincidunt ex ac diam eleifend, in congue mi finibus. Nullam dapibus
-            pulvinar lectus ac
+            Usuario: No organizador
           </p>
         </div>
         <hr className="mt-8" />
+        {isOrganizator ? 
         <div className="flex p-4">
           <div className="ml-28 text-center">
             Tienes <span className="font-bold">{userEvents.length}</span>{" "}
             Eventos
           </div>
         </div>
+        : 
+        <div className="flex p-4 justify-center">
+          <div className="flex flex-col items-center justify-center">
+            {!sended ? 
+            <button className="px-8 py-2 bg-primary text-center hover:bg-primary-dark text-white rounded-full font-bold hover:">
+              Solicitar ser organizador
+            </button>
+            :
+            <span className="inline-block bg-gray-200 rounded-full px-8 py-2 text-sm font-semibold text-gray-700 mt-2">
+              Solicitud enviada
+            </span>
+            }
+          </div>
+        </div>
+        }
       </div>
     </div>
   );

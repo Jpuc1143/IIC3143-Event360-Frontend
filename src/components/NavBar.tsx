@@ -5,6 +5,9 @@ export default function NavBar() {
   const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
   const callbackUri = process.env.REACT_APP_AUTH0_CALLBACK_URL;
 
+  //HARDCODED: Admin user, añadir cuando este la opción de ver si el usuario es un administrador
+  const isAdmin = true
+
   return (
     <div className="p-4">
       <ul className="font-medium flex flex-col justify-between p-8 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
@@ -57,6 +60,17 @@ export default function NavBar() {
           )}
           {isAuthenticated && (
             <div className="flex flex-row gap-6">
+              {isAdmin && (
+                <li>
+                  <Link
+                    aria-current="page"
+                    to="/requests"
+                    className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
+                  >
+                    Solicitudes
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link
                   aria-current="page"
