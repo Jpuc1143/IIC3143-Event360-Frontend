@@ -1,4 +1,5 @@
 import EventCard from "../components/EventCard";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getRequest } from "../api/queries";
 import { useLocation } from "react-router";
@@ -64,12 +65,12 @@ export default function Events() {
       <h1 className="text-4xl font-bold my-8 text-primary">{title}</h1>
       {isAuthenticated && pathname === "/my-organized-events" && (
         <div className="flex flex-row my-8">
-          <a
-            href="/create-event"
+          <Link
+            to="/create-event"
             className="bg-secondary text-white font-bold text-lg rounded-full px-5 py-2"
           >
             Crear Evento
-          </a>
+          </Link>
         </div>
       )}
       <div className="grid grid-cols-3 gap-8">
