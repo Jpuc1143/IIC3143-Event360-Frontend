@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import TicketCard from "../components/TicketCard";
-import event_img from '../assets/event.jpg';
+import event_img from "../assets/event.jpg";
 import { useEffect, useState } from "react";
 import { getRequest } from "../api/queries";
-import { useParams, useNavigate } from 'react-router';
-import { useAuth0 } from "@auth0/auth0-react";
+import { useParams } from "react-router";
+/* import { useAuth0 } from "@auth0/auth0-react"; */
 
 const ticket1 = {
   price: 10000,
@@ -25,19 +24,18 @@ const ticket3 = {
 } as TicketType;
 
 export default function Tickets() {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  /* const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0(); */
   const { id } = useParams();
 
   useEffect(() => {
     const getTickets = async () => {
-      const { data } = await getRequest(`/events/${id}/eventtickets`, 'token');
+      const { data } = await getRequest(`/events/${id}/eventtickets`, "token");
       if (data) setTickets(data);
-    }
+    };
     getTickets();
   }, [id]);
 
   const [tickets, setTickets] = useState<TicketType[]>([]);
-
 
   return (
     <div className="mx-16 my-8">
@@ -45,7 +43,9 @@ export default function Tickets() {
       <div className="mx-32">
         <h1 className="text-4xl font-bold my-8 text-primary">Tus Órdenes</h1>
         <div className="grid grid-cols-3 gap-8">
-          {tickets.map((ticket) => <TicketCard ticket={ticket} />)}
+          {tickets.map((ticket) => (
+            <TicketCard ticket={ticket} />
+          ))}
           <TicketCard ticket={ticket1} />
           <TicketCard ticket={ticket2} />
           <TicketCard ticket={ticket3} />

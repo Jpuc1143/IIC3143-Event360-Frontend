@@ -10,7 +10,10 @@ export default function Profile() {
     const getUser = async () => {
       try {
         const accessToken = await getAccessTokenSilently();
-        const userEvents = await getRequest(`/users/me/events_organized`, accessToken);
+        const userEvents = await getRequest(
+          `/users/me/events_organized`,
+          accessToken,
+        );
         setUserEvents(userEvents.data);
       } catch (error) {
         console.log(error);
