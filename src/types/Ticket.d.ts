@@ -1,6 +1,6 @@
 interface TicketType {
-    id: number;
-    price: number,
-    amount: number,
-    domainWhiteList: string,
+  id: number;
+  price: number;
+  amount: number;
+  domainWhiteList: string;
 }

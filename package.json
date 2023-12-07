@@ -33,7 +33,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "lint": "eslint --fix --ext .ts,.tsx ."
+    "lint": "eslint --fix --ext .ts,.tsx .",
+    "format": "prettier . --write",
+    "lint-check": "eslint . && prettier . --check"
   },
   "eslintConfig": {
     "extends": [

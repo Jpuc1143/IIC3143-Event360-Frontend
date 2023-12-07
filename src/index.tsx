@@ -1,18 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import { Auth0Provider } from "@auth0/auth0-react";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 
-const domain: string = process.env.REACT_APP_AUTH0_DOMAIN || '';
-const clientId: string = process.env.REACT_APP_AUTH0_CLIENT_ID || '';
-const redirectUri: string = process.env.REACT_APP_AUTH0_CALLBACK_URL || '';
-const audience = process.env.REACT_APP_AUTH0_AUDIENCE || '';
+const domain: string = process.env.REACT_APP_AUTH0_DOMAIN || "";
+const clientId: string = process.env.REACT_APP_AUTH0_CLIENT_ID || "";
+const redirectUri: string = process.env.REACT_APP_AUTH0_CALLBACK_URL || "";
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE || "";
 
 root.render(
   <React.StrictMode>
@@ -23,12 +23,10 @@ root.render(
         redirect_uri: redirectUri,
         audience: audience,
       }}
-      
     >
       <App />
     </Auth0Provider>
-    
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

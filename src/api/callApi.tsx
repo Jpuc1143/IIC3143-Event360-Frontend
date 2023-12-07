@@ -9,7 +9,7 @@ export const callApi = async (config: any, withStatus: boolean) => {
     }
     return {
       data,
-      error: null
+      error: null,
     };
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -34,16 +34,16 @@ export const callApi = async (config: any, withStatus: boolean) => {
       return {
         data: null,
         error: {
-          message
-        }
+          message,
+        },
       };
     }
 
     return {
       data: null,
       error: {
-        message: error
-      }
+        message: error,
+      },
     };
   }
 };
