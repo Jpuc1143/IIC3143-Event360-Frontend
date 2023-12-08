@@ -1,12 +1,27 @@
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from "react";
+import { getRequest } from "../api/queries";
 
 export default function NavBar() {
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const callbackUri = process.env.REACT_APP_AUTH0_CALLBACK_URL;
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [isOrganizator, setIsOrganizator] = useState('')
 
-  //HARDCODED: Admin user, añadir cuando este la opción de ver si el usuario es un administrador
-  const isAdmin = true
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const accessToken = await getAccessTokenSilently();
+        const userInfo = await getRequest(`/users/me/`, accessToken);
+        setIsAdmin(userInfo.data.admin)
+        setIsOrganizator(userInfo.data.organizer)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUser();
+  }, [getAccessTokenSilently])
 
   return (
     <div className="p-4">
@@ -35,7 +50,7 @@ export default function NavBar() {
               Mis Eventos
             </Link>
           )}
-          {isAuthenticated && (
+          {isAuthenticated && isOrganizator === 'verified' && (
             <Link
               aria-current="page"
               to="/my-organized-events"

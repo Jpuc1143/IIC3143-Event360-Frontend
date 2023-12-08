@@ -1,31 +1,52 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
-import { getRequest, postRequest } from "../api/queries"
+import { getRequest, patchRequest } from "../api/queries"
 
 export default function Requests () {
-  // HARDCODED: Obtener la información del backend
-  const data = Array.from({ length: 50 }, (_, index) => ({
-    id: index + 1,
-    column1: `Data ${index + 1}`,
-    column2: `Value ${index + 1}`,
-    column3: `Another ${index + 1}`,
-    column4: `Example ${index + 1}`,
-  }));
-
+  const { getAccessTokenSilently } = useAuth0();
   const [currentPage, setCurrentPage] = useState(1);
+  const [indexOfLastRow, setIndexOfLastRow] = useState(0)
+  const [indexOfFirstRow, setIndexOfFirstRow] = useState(0)
+  const [currentRows, setCurrentRows] = useState<User[]>([])
+  const [users, setUsers] = useState<User[]>([])
+  const [reload, setReload] = useState(false)
 
   const rowsPerPage = 10;
+  const totalPages = Math.ceil(users.length / rowsPerPage);
 
-  const indexOfLastRow = currentPage * rowsPerPage;
-  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const currentRows = data.slice(indexOfFirstRow, indexOfLastRow);
+  useEffect(() => {
+    setIndexOfLastRow(currentPage * rowsPerPage);
+    setIndexOfFirstRow(indexOfLastRow - rowsPerPage);
+    setCurrentRows(users.slice(indexOfFirstRow, indexOfLastRow));
+  }, [currentPage, indexOfFirstRow, indexOfLastRow, users])
 
-  const totalPages = Math.ceil(data.length / rowsPerPage);
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const accessToken = await getAccessTokenSilently();
+        const requestedUsers = await getRequest('/admins/petitions', accessToken);
+        setUsers(requestedUsers.data)
+        setReload(false)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUsers();
+  }, [getAccessTokenSilently, reload])
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+
+  const handleDecision = async (decision: boolean, id: string) => {
+    try {
+      const accessToken = await getAccessTokenSilently();
+      await patchRequest(`/admins/${id}/verify`, {answer: decision}, accessToken);
+      setReload(true)
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const getPaginationItems = () => {
     const items = [];
@@ -91,15 +112,21 @@ export default function Requests () {
           </tr>
         </thead>
         <tbody>
-          {currentRows.map((row) => (
-            <tr key={row.id}>
-              <td className="border-2 border-primary-light px-4 py-2">{row.column1}</td>
-              <td className="border-2 border-primary-light px-4 py-2">{row.column2}</td>
+          {currentRows.map((user) => (
+            <tr key={user.id}>
+              <td className="border-2 border-primary-light px-4 py-2">{user.name}</td>
+              <td className="border-2 border-primary-light px-4 py-2">{user.email}</td>
               <td className="border-2 border-primary-light px-2 py-2 w-96">
-                <button className="bg-primary-light text-white font-semibold text-base rounded-full px-4 py-1 mx-2.5">
+                <button 
+                  className="bg-primary-light text-white font-semibold text-base rounded-full px-4 py-1 mx-2.5"
+                  onClick={() => handleDecision(true, user.id)}
+                >
                   Aprobar solicitud
                 </button>
-                <button className="bg-secondary text-white font-semibold text-base rounded-full px-4 py-1">
+                <button 
+                  className="bg-secondary text-white font-semibold text-base rounded-full px-4 py-1" 
+                  onClick={() => handleDecision(false, user.id)}
+                >
                   Rechazar solicitud
                 </button>
               </td>
