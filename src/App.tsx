@@ -44,7 +44,7 @@ function App() {
         <Route path="/view-event/:id" element={<ShowEvent />} />
         <Route path="/payment/:id" element={<PaymentMock />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/requests" element={<Requests/>}/>
+        <Route path="/requests" element={<Requests />} />
       </Routes>
       <Footer />
     </BrowserRouter>
