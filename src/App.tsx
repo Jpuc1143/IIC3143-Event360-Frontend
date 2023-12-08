@@ -14,6 +14,7 @@ import EditEvent from "./pages/EditEvent";
 import ShowEvent from "./pages/ShowEvent";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Requests from "./pages/Requests";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path="/view-event/:id" element={<ShowEvent />} />
         <Route path="/payment/:id" element={<PaymentMock />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/requests" element={<Requests />} />
       </Routes>
       <Footer />
     </BrowserRouter>
