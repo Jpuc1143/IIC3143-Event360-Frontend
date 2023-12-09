@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postRequest } from "../api/queries";
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Dayjs } from "dayjs";
 
 type FormData = {
@@ -13,7 +13,7 @@ type FormData = {
   organization: string;
   description: string;
   eventType: string;
-  startDate:  Dayjs;
+  startDate: Dayjs;
   endDate: Dayjs;
   location: string;
   image: string;
@@ -27,18 +27,18 @@ const formDataSchema = z
     description: z.string().min(10, "La descripción es requerida"),
     eventType: z.string().min(1, "El tipo de evento es requerido"),
     startDate: z.date({
-      errorMap: (issue, ctx) => 
+      errorMap: (issue, ctx) =>
         issue.code === z.ZodIssueCode.invalid_date
           ? { message: "Fecha y hora de inicio inválida" }
           : { message: ctx.defaultError },
-      coerce: true
+      coerce: true,
     }),
     endDate: z.date({
-      errorMap: (issue, ctx) => 
+      errorMap: (issue, ctx) =>
         issue.code === z.ZodIssueCode.invalid_date
           ? { message: "Fecha y hora de término inválida" }
           : { message: ctx.defaultError },
-      coerce: true
+      coerce: true,
     }),
     location: z.string().min(1, "La ubicación es requerida"),
     image: z
@@ -48,7 +48,7 @@ const formDataSchema = z
   })
   .refine((data) => data.startDate < data.endDate, {
     message: "La fecha y hora de inicio debe ser anterior a la de término",
-    path: ["startDate", "endDate"]
+    path: ["startDate", "endDate"],
   });
 
 export default function CreateEvent() {
@@ -142,16 +142,16 @@ export default function CreateEvent() {
           </label>
           <Controller
             control={control}
-            name='startDate'
-            render={({field}) => {
-              return(
+            name="startDate"
+            render={({ field }) => {
+              return (
                 <DateTimePicker
                   format="DD/MM/YYYY HH:mm A"
                   onChange={(date) => field.onChange(date)}
                   disablePast
-                  slotProps={{ textField: { size: 'small' } }}
+                  slotProps={{ textField: { size: "small" } }}
                 />
-              )
+              );
             }}
           />
         </div>
@@ -161,21 +161,21 @@ export default function CreateEvent() {
           </label>
           <Controller
             control={control}
-            name='endDate'
-            render={({field}) => {
-              return(
+            name="endDate"
+            render={({ field }) => {
+              return (
                 <DateTimePicker
                   format="DD/MM/YYYY HH:mm A"
                   onChange={(date) => field.onChange(date)}
                   disablePast
-                  slotProps={{ 
+                  slotProps={{
                     textField: {
-                      size: 'small',
-                      className: 'rounded-lg'
+                      size: "small",
+                      className: "rounded-lg",
                     },
                   }}
                 />
-              )
+              );
             }}
           />
         </div>
