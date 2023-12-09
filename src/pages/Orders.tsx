@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import Order from "../components/OrderCard";
 import { useEffect, useState } from "react";
 import { getRequest } from "../api/queries";
@@ -26,10 +27,12 @@ const order3 = {
 export default function Orders() {
   /* const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0(); */
   const { id } = useParams();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     const getOrders = async () => {
-      const { data } = await getRequest(`/orders/${id}`, "token");
+      const accessToken = await getAccessTokenSilently();
+      const { data } = await getRequest(`/orders/${id}`, accessToken);
       if (data) setOrders(data);
     };
     getOrders();

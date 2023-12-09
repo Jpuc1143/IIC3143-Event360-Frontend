@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import TicketCard from "../components/TicketCard";
 import event_img from "../assets/event.jpg";
 import { useEffect, useState } from "react";
@@ -26,10 +27,12 @@ const ticket3 = {
 export default function Tickets() {
   /* const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0(); */
   const { id } = useParams();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     const getTickets = async () => {
-      const { data } = await getRequest(`/events/${id}/eventtickets`, "token");
+      const accessToken = await getAccessTokenSilently();
+      const { data } = await getRequest(`/events/${id}/eventtickets`, accessToken);
       if (data) setTickets(data);
     };
     getTickets();
