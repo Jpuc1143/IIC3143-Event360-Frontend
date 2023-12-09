@@ -47,7 +47,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold my-8 text-primary">Eventos</h1>
         <div className="grid grid-cols-3 gap-8">
           {events.map((event) => (
-            <EventCard event={event} />
+            <EventCard key={event.id} event={event} />
           ))}
           <EventCard event={evento} />
           <EventCard event={evento} />

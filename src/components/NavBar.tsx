@@ -1,9 +1,30 @@
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from "react";
+import { getRequest } from "../api/queries";
 
 export default function NavBar() {
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } =
+    useAuth0();
   const callbackUri = process.env.REACT_APP_AUTH0_CALLBACK_URL;
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isOrganizator, setIsOrganizator] = useState("");
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        if (isAuthenticated) {
+          const accessToken = await getAccessTokenSilently();
+          const userInfo = await getRequest(`/users/me/`, accessToken);
+          setIsAdmin(userInfo.data.admin);
+          setIsOrganizator(userInfo.data.organizer);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUser();
+  }, [getAccessTokenSilently, isAuthenticated]);
 
   return (
     <div className="p-4">
@@ -32,7 +53,7 @@ export default function NavBar() {
               Mis Eventos
             </Link>
           )}
-          {isAuthenticated && (
+          {isAuthenticated && isOrganizator === "verified" && (
             <Link
               aria-current="page"
               to="/my-organized-events"
@@ -57,6 +78,17 @@ export default function NavBar() {
           )}
           {isAuthenticated && (
             <div className="flex flex-row gap-6">
+              {isAdmin && (
+                <li>
+                  <Link
+                    aria-current="page"
+                    to="/requests"
+                    className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
+                  >
+                    Solicitudes
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link
                   aria-current="page"
