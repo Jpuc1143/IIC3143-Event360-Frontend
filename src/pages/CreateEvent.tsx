@@ -1,44 +1,60 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "react-toastify";
 /* import { useMutation, useQueryClient } from "react-query"; */
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postRequest } from "../api/queries";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { Dayjs } from "dayjs";
 
 type FormData = {
   name: string;
   organization: string;
   description: string;
   eventType: string;
-  startDate: string;
-  endDate: string;
+  startDate: Dayjs;
+  endDate: Dayjs;
   location: string;
   image: string;
   merchantCode: string;
 };
 
-const formDataSchema = z.object({
-  name: z.string().min(1, "El nombre es requerido"),
-  organization: z.string().min(1, "La organización es requerida"),
-  description: z.string().min(10, "La descripción es requerida"),
-  eventType: z.string().min(1, "El tipo de evento es requerido"),
-  startDate: z.string().refine((datetime) => !/^\s+$/.test(datetime), {
-    message: "Fecha y hora de inicio inválida",
-  }),
-  endDate: z.string().refine((datetime) => !/^\s+$/.test(datetime), {
-    message: "Fecha y hora de término inválida",
-  }),
-  location: z.string().min(1, "La ubicación es requerida"),
-  image: z
-    .string()
-    .min(1, "La imagen es requerida")
-    .refine((image) => !/^\s+$/.test(image), { message: "Link inválido" }),
-});
+const formDataSchema = z
+  .object({
+    name: z.string().min(1, "El nombre es requerido"),
+    organization: z.string().min(1, "La organización es requerida"),
+    description: z.string().min(10, "La descripción es requerida"),
+    eventType: z.string().min(1, "El tipo de evento es requerido"),
+    startDate: z.date({
+      errorMap: (issue, ctx) =>
+        issue.code === z.ZodIssueCode.invalid_date
+          ? { message: "Fecha y hora de inicio inválida" }
+          : { message: ctx.defaultError },
+      coerce: true,
+    }),
+    endDate: z.date({
+      errorMap: (issue, ctx) =>
+        issue.code === z.ZodIssueCode.invalid_date
+          ? { message: "Fecha y hora de término inválida" }
+          : { message: ctx.defaultError },
+      coerce: true,
+    }),
+    location: z.string().min(1, "La ubicación es requerida"),
+    image: z
+      .string()
+      .min(1, "La imagen es requerida")
+      .refine((image) => !/^\s+$/.test(image), { message: "Link inválido" }),
+  })
+  .refine((data) => data.startDate < data.endDate, {
+    message: "La fecha y hora de inicio debe ser anterior a la de término",
+    path: ["startDate", "endDate"],
+  });
 
 export default function CreateEvent() {
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
     watch,
@@ -74,7 +90,6 @@ export default function CreateEvent() {
       }
     }
   };
-  const currentDate = new Date().toLocaleDateString();
 
   return (
     <div className="mx-32 my-6 flex flex-col items-center">
@@ -125,22 +140,43 @@ export default function CreateEvent() {
           <label className="text-primary-dark text-lg">
             Fecha y Hora de Inicio
           </label>
-          <input
-            {...register("startDate")}
-            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary"
-            type="text"
-            placeholder={`Ej: ${currentDate} 17:00`}
+          <Controller
+            control={control}
+            name="startDate"
+            render={({ field }) => {
+              return (
+                <DateTimePicker
+                  format="DD/MM/YYYY HH:mm A"
+                  onChange={(date) => field.onChange(date)}
+                  disablePast
+                  slotProps={{ textField: { size: "small" } }}
+                />
+              );
+            }}
           />
         </div>
         <div className="flex flex-col">
           <label className="text-primary-dark text-lg">
             Fecha y Hora de Término
           </label>
-          <input
-            {...register("endDate")}
-            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary"
-            type="text"
-            placeholder={`Ej: ${currentDate} 20:00`}
+          <Controller
+            control={control}
+            name="endDate"
+            render={({ field }) => {
+              return (
+                <DateTimePicker
+                  format="DD/MM/YYYY HH:mm A"
+                  onChange={(date) => field.onChange(date)}
+                  disablePast
+                  slotProps={{
+                    textField: {
+                      size: "small",
+                      className: "rounded-lg",
+                    },
+                  }}
+                />
+              );
+            }}
           />
         </div>
         <div className="flex flex-col">
@@ -169,7 +205,7 @@ export default function CreateEvent() {
               <img
                 src={watch("image")}
                 alt="Vista previa"
-                className="w-full rounded-md shadow-lg max-h-64"
+                className="w-64 rounded-md shadow-lg max-h-64"
               />
             </div>
           )}
