@@ -97,7 +97,7 @@ export default function Event() {
             <TicketTypeCard ticket={ticket} />
           ))}
         <button
-          onClick={() => navigate(`/edit-event/${id}/ticket`, { replace: true })}
+          onClick={() => navigate(`/edit-event/${EventId.id}/ticket`, { replace: true })}
           className="w-32 h-8 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:"
         >
           Añadir tipo de ticket
