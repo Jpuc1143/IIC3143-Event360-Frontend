@@ -19,7 +19,6 @@ export default function NavBar() {
           setIsAdmin(userInfo.data.admin);
           setIsOrganizator(userInfo.data.organizer);
         }
-        
       } catch (error) {
         console.log(error);
       }
