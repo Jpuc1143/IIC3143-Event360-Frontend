@@ -1,5 +1,4 @@
 import { useParams } from "react-router";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useState, useEffect } from "react";
 import { getRequest } from "../api/queries";
 import { Link } from "react-router-dom";
@@ -7,7 +6,6 @@ import changeDateFormat from "../utils/changeDateFormat";
 
 export default function Event() {
   const EventId = useParams<{ id: string }>();
-  const { getAccessTokenSilently } = useAuth0();
   const [event, setEvent] = useState<Event>();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -33,7 +31,7 @@ export default function Event() {
     }
     getEvent();
     getAttendees();
-  }, []);
+  }, [EventId.id]);
   
   return (
     <div

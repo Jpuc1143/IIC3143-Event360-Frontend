@@ -49,7 +49,13 @@ export default function Home() {
           {events.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
+          <EventCard event={evento} />
+          <EventCard event={evento} />
+          <EventCard event={evento} />
+          <EventCard event={evento} />
+          <EventCard event={evento} />
         </div>
+        
       </div>
     </div>
   );

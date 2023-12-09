@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getRequest } from "../api/queries";
 
 export default function NavBar() {
-  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently, user } =
+  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } =
     useAuth0();
   const callbackUri = process.env.REACT_APP_AUTH0_CALLBACK_URL;
   const [isAdmin, setIsAdmin] = useState(false);
