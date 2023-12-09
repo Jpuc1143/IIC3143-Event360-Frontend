@@ -55,7 +55,6 @@ export default function Home() {
           <EventCard event={evento} />
           <EventCard event={evento} />
         </div>
-        
       </div>
     </div>
   );

@@ -11,43 +11,43 @@ export default function Event() {
   const [endDate, setEndDate] = useState("");
   const [showAttendees, setShowAttendees] = useState(false);
   const [attendees, setAttendees] = useState<User[]>([]);
-  
+
   useEffect(() => {
     const getEvent = async () => {
       const { data } = await getRequest(`/events/${EventId.id}`, "token");
       if (data) {
-        setEvent(data)
-        setStartDate(changeDateFormat(data.startDate))
-        setEndDate(changeDateFormat(data.endDate))
+        setEvent(data);
+        setStartDate(changeDateFormat(data.startDate));
+        setEndDate(changeDateFormat(data.endDate));
       }
-      console.log(data)
+      console.log(data);
     };
     const getAttendees = async () => {
-      const { data } = await getRequest(`/events/${EventId.id}/attendees`, "token");
+      const { data } = await getRequest(
+        `/events/${EventId.id}/attendees`,
+        "token",
+      );
       if (data) {
-        setAttendees(data)
-        console.log(data)
+        setAttendees(data);
+        console.log(data);
       }
-    }
+    };
     getEvent();
     getAttendees();
   }, [EventId.id]);
-  
+
   return (
-    <div
-      className="mx-auto my-52 h-[500px] w-[1200px] flex flex-col rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 md:flex-row">
+    <div className="mx-auto my-52 h-[500px] w-[1200px] flex flex-col rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 md:flex-row">
       <img
         className="h-96 w-full rounded-t-lg object-cover md:h-auto w-[400px] md:rounded-none md:rounded-l-lg"
         src={event?.image}
-        alt="" />
+        alt=""
+      />
       <div className="flex flex-col justify-start p-6">
-        <h1
-          className="mb-2 text-3xl font-medium">
-          {event?.name}
-        </h1>
+        <h1 className="mb-2 text-3xl font-medium">{event?.name}</h1>
         <p className="mb-4 text-2xl text-neutral-800">
           Descripción: {event?.description}
-        </p> 
+        </p>
         <p className="mb-4 text-2xl text-neutral-800">
           Ubicación: {event?.location}
         </p>
@@ -81,7 +81,6 @@ export default function Event() {
           </ul>
         </div>
       )}
-      
     </div>
   );
 }
