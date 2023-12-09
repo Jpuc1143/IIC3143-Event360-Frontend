@@ -13,16 +13,18 @@ export default function NavBar() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const accessToken = await getAccessTokenSilently();
-        const userInfo = await getRequest(`/users/me/`, accessToken);
-        setIsAdmin(userInfo.data.admin);
-        setIsOrganizator(userInfo.data.organizer);
+        if (isAuthenticated) {
+          const accessToken = await getAccessTokenSilently();
+          const userInfo = await getRequest(`/users/me/`, accessToken);
+          setIsAdmin(userInfo.data.admin);
+          setIsOrganizator(userInfo.data.organizer);
+        }
       } catch (error) {
         console.log(error);
       }
     };
     getUser();
-  }, [getAccessTokenSilently]);
+  }, [getAccessTokenSilently, isAuthenticated]);
 
   return (
     <div className="p-4">
