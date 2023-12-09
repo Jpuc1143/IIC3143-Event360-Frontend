@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postRequest } from "../api/queries";
- 
+
 type FormData = {
   // event_id: string;
   // name: string;
@@ -19,7 +19,7 @@ const formDataSchema = z.object({
   // name: z.string().min(1, "El nombre es requerido"),
   price: z.number().int().min(1, "El precio por ticket es requerido"),
   amount: z.number().int().min(1, "La cantidad de tickets es requerida"),
-  domainWhiteList: z.string()
+  domainWhiteList: z.string(),
 });
 
 export default function CreateEvent() {
@@ -74,8 +74,11 @@ export default function CreateEvent() {
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary"
             type="text"
           />
-        </div><div className="flex flex-col">
-          <label className="text-primary-dark text-lg">Cantidad de tickets disponibles</label>
+        </div>
+        <div className="flex flex-col">
+          <label className="text-primary-dark text-lg">
+            Cantidad de tickets disponibles
+          </label>
           <input
             {...register("price")}
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary"
@@ -83,7 +86,9 @@ export default function CreateEvent() {
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-primary-dark text-lg">Añadir dominions permitidos</label>
+          <label className="text-primary-dark text-lg">
+            Añadir dominions permitidos
+          </label>
           <input
             {...register("domainWhitelist")}
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary"

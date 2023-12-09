@@ -38,7 +38,10 @@ export default function Event() {
     };
     const getTicketTypes = async () => {
       // const accessToken = await getAccessTokenSilently();
-      const { data } = await getRequest(`/users/me/events_organized/${EventId.id}`, "token");
+      const { data } = await getRequest(
+        `/users/me/events_organized/${EventId.id}`,
+        "token",
+      );
       if (data) setTicketTypes(data);
       console.log(data);
     };
@@ -93,11 +96,13 @@ export default function Event() {
         </div>
       )}
       <div className="grid grid-cols-3 gap-8">
-          {ticketTypes.map((ticket) => (
-            <TicketTypeCard ticket={ticket} />
-          ))}
+        {ticketTypes.map((ticket) => (
+          <TicketTypeCard ticket={ticket} />
+        ))}
         <button
-          onClick={() => navigate(`/edit-event/${EventId.id}/ticket`, { replace: true })}
+          onClick={() =>
+            navigate(`/edit-event/${EventId.id}/ticket`, { replace: true })
+          }
           className="w-32 h-8 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:"
         >
           Añadir tipo de ticket

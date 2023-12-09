@@ -32,7 +32,10 @@ export default function Tickets() {
   useEffect(() => {
     const getTickets = async () => {
       const accessToken = await getAccessTokenSilently();
-      const { data } = await getRequest(`/events/${id}/eventtickets`, accessToken);
+      const { data } = await getRequest(
+        `/events/${id}/eventtickets`,
+        accessToken,
+      );
       if (data) setTickets(data);
     };
     getTickets();
