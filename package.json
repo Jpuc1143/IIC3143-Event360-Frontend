@@ -63,6 +63,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.0",
     "prettier": "^3.0.3",
