@@ -20,8 +20,6 @@ type FormData = {
   merchantCode: string;
 };
 
-const currentDate = new Date();
-
 const formDataSchema = z
   .object({
     name: z.string().min(1, "El nombre es requerido"),
