@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 export default function ShowEvent() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     const getTicketTypes = async () => {
@@ -17,7 +17,7 @@ export default function ShowEvent() {
       if (data) setTicketTypes(data);
     };
     getTicketTypes();
-  }, [id]);
+  }, [id, getAccessTokenSilently]);
 
   const [ticketTypes, setTicketTypes] = useState<TicketType[]>([]);
   

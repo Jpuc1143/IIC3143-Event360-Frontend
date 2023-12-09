@@ -27,7 +27,7 @@ const ticket3 = {
 export default function Tickets() {
   /* const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0(); */
   const { id } = useParams();
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     const getTickets = async () => {
@@ -36,7 +36,7 @@ export default function Tickets() {
       if (data) setTickets(data);
     };
     getTickets();
-  }, [id]);
+  }, [id, getAccessTokenSilently]);
 
   const [tickets, setTickets] = useState<TicketType[]>([]);
 

@@ -26,8 +26,8 @@ export default function CreateEvent() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    watch,
+    // formState: { errors },
+    // watch,
   } = useForm<FormData>();
   const navigate = useNavigate();
   const { getAccessTokenSilently } = useAuth0();

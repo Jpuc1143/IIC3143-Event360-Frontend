@@ -27,7 +27,7 @@ const order3 = {
 export default function Orders() {
   /* const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0(); */
   const { id } = useParams();
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     const getOrders = async () => {
@@ -36,7 +36,7 @@ export default function Orders() {
       if (data) setOrders(data);
     };
     getOrders();
-  }, [id]);
+  }, [id, getAccessTokenSilently]);
 
   const [orders, setOrders] = useState<Order[]>([]);
 
