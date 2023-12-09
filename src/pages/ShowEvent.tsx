@@ -2,15 +2,19 @@ import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import { getRequest } from "../api/queries";
 import { Link } from "react-router-dom";
+import TicketTypeCard from "../components/TicketTypeCard";
+import { useNavigate } from "react-router";
 import changeDateFormat from "../utils/changeDateFormat";
 
 export default function Event() {
+  const navigate = useNavigate();
   const EventId = useParams<{ id: string }>();
   const [event, setEvent] = useState<Event>();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [showAttendees, setShowAttendees] = useState(false);
   const [attendees, setAttendees] = useState<User[]>([]);
+  const [ticketTypes, setTicketTypes] = useState<TicketType[]>([]);
 
   useEffect(() => {
     const getEvent = async () => {
@@ -32,8 +36,18 @@ export default function Event() {
         console.log(data);
       }
     };
+    const getTicketTypes = async () => {
+      // const accessToken = await getAccessTokenSilently();
+      const { data } = await getRequest(
+        `/users/me/events_organized/${EventId.id}`,
+        "token",
+      );
+      if (data) setTicketTypes(data);
+      console.log(data);
+    };
     getEvent();
     getAttendees();
+    getTicketTypes();
   }, [EventId.id]);
 
   return (
@@ -81,6 +95,19 @@ export default function Event() {
           </ul>
         </div>
       )}
+      <div className="grid grid-cols-3 gap-8">
+        {ticketTypes.map((ticket) => (
+          <TicketTypeCard ticket={ticket} />
+        ))}
+        <button
+          onClick={() =>
+            navigate(`/edit-event/${EventId.id}/ticket`, { replace: true })
+          }
+          className="w-32 h-8 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:"
+        >
+          Añadir tipo de ticket
+        </button>
+      </div>
     </div>
   );
 }
