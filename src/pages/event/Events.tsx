@@ -97,7 +97,7 @@ export default function Events() {
       )}
       <div className="grid grid-cols-3 gap-8">
         {eventsToShow.map((event) => (
-          <EventCard event={event} key={event.id} />
+          <EventCard event={event} />
         ))}
       </div>
       <nav className="mx-auto mt-24">
