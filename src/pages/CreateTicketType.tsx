@@ -9,20 +9,20 @@ import { useParams } from "react-router";
 
 type FormData = {
   eventId: undefined | string;
-  // name: string;
+  name: string;
   price: number;
   amount: number;
   domainWhitelist: string;
 };
 
 const formDataSchema = z.object({
-  // name: z.string().min(1, "El nombre es requerido"),
+  name: z.string().min(1, "El nombre es requerido"),
   price: z.coerce.number().min(1, "El precio por ticket es requerido"),
   amount: z.coerce.number().min(1, "La cantidad de tickets es requerida"),
   domainWhiteList: z
   .union([z.string().length(0), z.string().min(4)])
   .optional()
-  .transform(e => e === "" ? undefined : e),
+  .transform(e => e === "" ? "" : e),
 });
 
 export default function CreateEvent() {
@@ -74,6 +74,15 @@ export default function CreateEvent() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col">
+          <label className="text-primary-dark text-lg">Nombre</label>
+          <input
+            {...register("name")}
+            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary"
+            type="text"
+            placeholder="Ej: VIP, General, etc."
+          />
+        </div>
+        <div className="flex flex-col">
           <label className="text-primary-dark text-lg">Precio</label>
           <input
             {...register("price")}
@@ -99,6 +108,7 @@ export default function CreateEvent() {
             {...register("domainWhitelist")}
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary"
             type="text"
+            placeholder="Ej: uc.cl, uchile.cl"
           />
         </div>
         <div className="flex flex-row gap-6 justify-betweeen">
