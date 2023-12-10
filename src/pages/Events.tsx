@@ -6,23 +6,15 @@ import { useLocation } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 /* import { access } from "fs"; */
 
-const evento = {
-  id: 1,
-  name: "DCCTarreo",
-  organization: "Departamento en Ciencias de la Computación",
-  eventType: "Presencial",
-  description: "El DCC te invita a su tarreo",
-  startDate: "15/10/2021",
-  endDate: "15/10/2021",
-  location: "Sala de Eventos",
-  image:
-    "https://scontent.cdninstagram.com/v/t39.30808-6/375866728_18384927592051728_9106154841496335470_n.jpg?stp=dst-jpg_e35_p640x640_sh0.08&_nc_ht=scontent.cdninstagram.com&_nc_cat=100&_nc_ohc=Pi9f2CotQ7kAX8PWZDt&edm=APs17CUAAAAA&ccb=7-5&oh=00_AfBmlfzziXjzxdphi5qb8ZlMMFqefTgqZ2m7kM9LlA0tvw&oe=65642694&_nc_sid=10d13b",
-  merchantCode: 0,
-} as Event;
-
 export default function Events() {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [events, setEvents] = useState<Event[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const eventsPerPage = 6;
+  const [lastIndex, setLastIndex] = useState(currentPage * eventsPerPage);
+  const [firstIndex, setFirstIndex] = useState(lastIndex - eventsPerPage);
+  const [eventsToShow, setEventsToShow] = useState<Event[]>([]);
+  const [npage, setNpage] = useState(0);
   const { pathname } = useLocation();
 
   const title =
@@ -37,7 +29,11 @@ export default function Events() {
       const getEvents = async () => {
         const accessToken = await getAccessTokenSilently();
         const { data } = await getRequest("/users/me/events", accessToken);
-        if (data) setEvents(data);
+        if (data) {
+          setEvents(data);
+          setEventsToShow(data.slice(firstIndex, lastIndex));
+          setNpage(Math.ceil(data.length / eventsPerPage));
+        };
       };
       getEvents();
     } else if (pathname === "/my-organized-events") {
@@ -47,18 +43,45 @@ export default function Events() {
           "/users/me/events_organized",
           accessToken,
         );
-        if (data) setEvents(data);
+        if (data) {
+          setEvents(data)
+          setEventsToShow(data.slice(firstIndex, lastIndex));
+          setNpage(Math.ceil(data.length / eventsPerPage));
+        };
       };
       getEvents();
     } else {
       const getEvents = async () => {
         const accessToken = await getAccessTokenSilently();
         const { data } = await getRequest("/events", accessToken);
-        if (data) setEvents(data);
+        if (data) {
+          setEvents(data);
+          setEventsToShow(data.slice(firstIndex, lastIndex));
+          setNpage(Math.ceil(data.length / eventsPerPage));
+        }
       };
       getEvents();
     }
-  }, [pathname, getAccessTokenSilently]);
+  }, [pathname, getAccessTokenSilently, firstIndex, lastIndex, npage]);
+
+  const nextPage = () => {
+    if (currentPage < npage ) {
+      setCurrentPage(currentPage + 1);
+      setFirstIndex(firstIndex + eventsPerPage);
+      setLastIndex(lastIndex + eventsPerPage);
+      setEventsToShow(events.slice(firstIndex, lastIndex));
+      
+    }
+  };
+
+  const prePage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      setFirstIndex(firstIndex - eventsPerPage);
+      setLastIndex(lastIndex - eventsPerPage);
+      setEventsToShow(events.slice(firstIndex, lastIndex));
+    }
+  };
 
   return (
     <div className="mx-32">
@@ -74,15 +97,28 @@ export default function Events() {
         </div>
       )}
       <div className="grid grid-cols-3 gap-8">
-        {events.map((event) => (
-          <EventCard event={event} />
+        {eventsToShow.map((event) => (
+          <EventCard event={event} key={event.id} />
         ))}
-        <EventCard event={evento} />
-        <EventCard event={evento} />
-        <EventCard event={evento} />
-        <EventCard event={evento} />
-        <EventCard event={evento} />
+
       </div>
+      <nav className="mx-auto mt-24">
+          <ul className="flex gap-6">
+            <li className="page-item">
+              <button className="page-link" onClick={prePage}>
+                Anterior
+              </button>
+            </li>
+            <li>
+              {currentPage}
+            </li>
+            <li className="page-item">
+              <button className="page-link" onClick={nextPage}>
+                Siguiente
+              </button>
+            </li>
+          </ul>
+        </nav>
     </div>
   );
 }
