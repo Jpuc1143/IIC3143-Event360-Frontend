@@ -15,10 +15,10 @@ export default function TicketCard({ ticket }: { ticket: TicketType }) {
           <div className="flex justify-between text-sm">
             Precio: ${ticket.price}
           </div>
-          <div className="text-base font-bold">Restantes: {ticket.amount}</div>
-          {ticket.domainWhiteList !== "all" && (
+          <div className="text-base font-bold">Restantes: {ticket.ticketsLeft}/{ticket.amount}</div>
+          {ticket.domainWhiteList !== "" && (
             <div className="text-base font-bold">
-              (Solo válido para correos {ticket.domainWhiteList})
+              (Solo válido para correos {ticket.domainWhitelist})
             </div>
           )}
         </div>
