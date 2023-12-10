@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import EditEvent from "./pages/EditEvent";
 import ShowEvent from "./pages/ShowEvent";
 import CreateTicketType from "./pages/CreateTicketType";
+import VerifyTicket from "./pages/VerifyTicket";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Requests from "./pages/Requests";
@@ -47,6 +48,7 @@ function App() {
         <Route path="/payment/:id" element={<PaymentMock />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/requests" element={<Requests />} />
+        <Route path="/verify-ticket/:id" element={<VerifyTicket />} />
       </Routes>
       <Footer />
     </BrowserRouter>
