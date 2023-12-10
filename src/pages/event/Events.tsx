@@ -6,7 +6,6 @@ import { useLocation } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 /* import { access } from "fs"; */
 
-
 export default function Events() {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [events, setEvents] = useState<Event[]>([]);

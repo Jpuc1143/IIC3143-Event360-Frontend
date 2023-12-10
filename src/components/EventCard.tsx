@@ -36,7 +36,9 @@ export default function EventCard({ event }: { event: Event }) {
             <div className="flex justify-between text-sm">
               {event.organization}
             </div>
-            <span className="text-base font-bold">{dayjs(event.startDate).tz("America/Santiago").format("LLL")} hrs</span>
+            <span className="text-base font-bold">
+              {dayjs(event.startDate).tz("America/Santiago").format("LLL")} hrs
+            </span>
           </div>
         </div>
         <div className="px-6 pb-2 ">
