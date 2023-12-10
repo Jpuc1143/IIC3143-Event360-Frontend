@@ -11,8 +11,10 @@ export default function Profile() {
     const getUser = async () => {
       try {
         const accessToken = await getAccessTokenSilently();
+        console.log(accessToken);
         const userInfo = await getRequest(`/users/me/`, accessToken);
         setIsOrganizator(userInfo.data.organizer);
+        console.log(userInfo.data.id);
         const userEvents = await getRequest(
           `/users/me/events_organized`,
           accessToken,
