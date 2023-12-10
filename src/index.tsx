@@ -25,6 +25,8 @@ root.render(
         redirect_uri: redirectUri,
         audience: audience,
       }}
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
     >
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <App />
