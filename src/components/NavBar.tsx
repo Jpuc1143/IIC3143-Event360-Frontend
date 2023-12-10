@@ -16,8 +16,6 @@ export default function NavBar() {
         if (isAuthenticated) {
           const accessToken = await getAccessTokenSilently();
           const userInfo = await getRequest(`/users/me/`, accessToken);
-          console.log(userInfo);
-          console.log(accessToken);
           setIsAdmin(userInfo.data.admin);
           setIsOrganizator(userInfo.data.organizer);
         }
