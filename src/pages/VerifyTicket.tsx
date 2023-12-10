@@ -16,31 +16,39 @@ export default function Event() {
     getAccessTokenSilently().then((token) => {
       postRequest(`/events/${eventId}/verify`, { secret }, token).then(
         (response) => {
-	setTicket(response.data)
-	}
+          setTicket(response.data);
+        },
       );
     });
   };
 
   const checkInTicket = (id: string, secret: string) => {
     getAccessTokenSilently().then((token) => {
-    patchRequest(`/tickets/${id}/checkin`, {}, token).then(() => getTicket(secret))
-    })
-  }
+      patchRequest(`/tickets/${id}/checkin`, {}, token).then(() =>
+        getTicket(secret),
+      );
+    });
+  };
 
   let ticketJsx;
   if (ticket !== undefined && ticket !== null) {
-	ticketJsx = (
-	<>
-	<h4>Ticket válido</h4>
-	<ul>
-	<li>ID: {ticket?.id}</li>
-	<li>Usuario: {ticket?.user.name} ({ticket?.user.email})</li>
-	<li>Estado: {ticket?.status}</li>
-	</ul>
-	{ticket?.status !== "used" ? <Button onClick={()=>checkInTicket(ticket.id, ticket.secret)}>Marcar como utilizado</Button>: null}
-	</>
-	)
+    ticketJsx = (
+      <>
+        <h4>Ticket válido</h4>
+        <ul>
+          <li>ID: {ticket?.id}</li>
+          <li>
+            Usuario: {ticket?.user.name} ({ticket?.user.email})
+          </li>
+          <li>Estado: {ticket?.status}</li>
+        </ul>
+        {ticket?.status !== "used" ? (
+          <Button onClick={() => checkInTicket(ticket.id, ticket.secret)}>
+            Marcar como utilizado
+          </Button>
+        ) : null}
+      </>
+    );
   }
 
   return (
@@ -55,10 +63,10 @@ export default function Event() {
         constraints={{}}
       />
       <div>
-	{ ticket === undefined ? "Muestre un código QR" : null }
-	{ ticket === null ? "Código invalido o no pertenece a evento" : null }
-	{ ticket !== undefined && ticket !== null ? ticketJsx: null }
-	</div>
+        {ticket === undefined ? "Muestre un código QR" : null}
+        {ticket === null ? "Código invalido o no pertenece a evento" : null}
+        {ticket !== undefined && ticket !== null ? ticketJsx : null}
+      </div>
     </div>
   );
 }
