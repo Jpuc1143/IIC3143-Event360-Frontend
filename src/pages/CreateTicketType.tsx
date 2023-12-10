@@ -5,21 +5,24 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postRequest } from "../api/queries";
+import { useParams } from "react-router";
 
 type FormData = {
-  // event_id: string;
-  // name: string;
+  eventId: undefined | string;
+  name: string;
   price: number;
   amount: number;
   domainWhitelist: string;
 };
 
 const formDataSchema = z.object({
-  // event_id: z.string().min(1, "El id del evento es requerido"),
-  // name: z.string().min(1, "El nombre es requerido"),
-  price: z.number().int().min(1, "El precio por ticket es requerido"),
-  amount: z.number().int().min(1, "La cantidad de tickets es requerida"),
-  domainWhiteList: z.string(),
+  name: z.string().min(1, "El nombre es requerido"),
+  price: z.coerce.number().min(1, "El precio por ticket es requerido"),
+  amount: z.coerce.number().min(1, "La cantidad de tickets es requerida"),
+  domainWhiteList: z
+    .union([z.string().length(0), z.string().min(4)])
+    .optional()
+    .transform((e) => (e === "" ? "" : e)),
 });
 
 export default function CreateEvent() {
@@ -29,15 +32,18 @@ export default function CreateEvent() {
     // formState: { errors },
     // watch,
   } = useForm<FormData>();
+  const EventId = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getAccessTokenSilently } = useAuth0();
 
   const createEvent = async (newEvent: FormData) => {
     const accessToken = await getAccessTokenSilently();
-    const { data } = await postRequest("/tickettype", newEvent, accessToken); // TODO: Cambiar a endpoint correcto
+    newEvent.eventId = EventId.id;
+    console.log(newEvent);
+    const { data } = await postRequest("/tickettypes", newEvent, accessToken); // TODO: Cambiar a endpoint correcto
     if (data) {
       toast.success("Tipo de ticket creado exitosamente");
-      navigate(`/view-events/${data.event_id}`);
+      navigate(`/view-event/${EventId.id}`);
     } else {
       toast.error("Hubo un error al crear el evento");
     }
@@ -62,11 +68,22 @@ export default function CreateEvent() {
 
   return (
     <div className="mx-32 my-6 flex flex-col items-center">
-      <h1 className="text-primary font-bold text-4xl">Crea un nuevo Evento!</h1>
+      <h1 className="text-primary font-bold text-4xl">
+        Agrega un nuevo tipo de ticket
+      </h1>
       <form
         className="flex flex-col gap-4 my-3"
         onSubmit={handleSubmit(onSubmit)}
       >
+        <div className="flex flex-col">
+          <label className="text-primary-dark text-lg">Nombre</label>
+          <input
+            {...register("name")}
+            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary"
+            type="text"
+            placeholder="Ej: VIP, General, etc."
+          />
+        </div>
         <div className="flex flex-col">
           <label className="text-primary-dark text-lg">Precio</label>
           <input
@@ -80,19 +97,20 @@ export default function CreateEvent() {
             Cantidad de tickets disponibles
           </label>
           <input
-            {...register("price")}
+            {...register("amount")}
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary"
             type="text"
           />
         </div>
         <div className="flex flex-col">
           <label className="text-primary-dark text-lg">
-            Añadir dominions permitidos
+            Añadir dominios permitidos
           </label>
           <input
             {...register("domainWhitelist")}
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary"
             type="text"
+            placeholder="Ej: uc.cl, uchile.cl"
           />
         </div>
         <div className="flex flex-row gap-6 justify-betweeen">

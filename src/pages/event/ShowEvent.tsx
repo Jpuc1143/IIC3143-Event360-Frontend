@@ -39,11 +39,11 @@ export default function Event() {
     const getTicketTypes = async () => {
       // const accessToken = await getAccessTokenSilently();
       const { data } = await getRequest(
-        `/users/me/events_organized/${EventId.id}`,
+        `/events/${EventId.id}/eventtickets`,
         "token",
       );
       if (data) setTicketTypes(data);
-      console.log(data);
+      console.log("tickets", data);
     };
     getEvent();
     getAttendees();
