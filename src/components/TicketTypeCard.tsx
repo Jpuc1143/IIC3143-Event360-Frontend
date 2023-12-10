@@ -16,11 +16,12 @@ export default function TicketCard({ ticket }: { ticket: TicketType }) {
             Precio: ${ticket.price}
           </div>
           <div className="text-base font-bold">Restantes: {ticket.amount}</div>
-          {ticket.domainWhitelist !== "" && ticket.domainWhitelist !== undefined && (
-            <div className="text-base font-bold">
-              (Solo válido para correos {ticket.domainWhitelist})
-            </div>
-          )}
+          {ticket.domainWhitelist !== "" &&
+            ticket.domainWhitelist !== undefined && (
+              <div className="text-base font-bold">
+                (Solo válido para correos {ticket.domainWhitelist})
+              </div>
+            )}
         </div>
       </div>
       {isAuthenticated && (

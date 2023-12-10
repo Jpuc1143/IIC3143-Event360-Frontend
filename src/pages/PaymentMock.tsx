@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 export default function PaymentMock() {
   const { id } = useParams();
   const { state } = useLocation();
-  console.log('state', state)
+  console.log("state", state);
   const navigate = useNavigate();
   const { getAccessTokenSilently } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
@@ -29,9 +29,9 @@ export default function PaymentMock() {
         } catch (error) {
           console.log(error);
         }
-      };
+      }
     };
-      
+
     const getEvent = async () => {
       try {
         const accessToken = await getAccessTokenSilently();
@@ -68,7 +68,9 @@ export default function PaymentMock() {
           <div className="flex flex-row items-center gap-8">
             {/* TODO: Poner las rutas correctas cuando esten */}
             <button
-              onClick={() => navigate(`/view-event/${state.eventId}`, { replace: true })}
+              onClick={() =>
+                navigate(`/view-event/${state.eventId}`, { replace: true })
+              }
               className="w-32 h-8 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:"
             >
               Ver evento

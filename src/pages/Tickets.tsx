@@ -28,7 +28,9 @@ export default function Tickets() {
     <div className="mx-16 my-8">
       {/* <img className="w-full h-96 rounded-xl" src={event_img} alt="event-img" /> */}
       <div className="mx-32">
-        <h1 className="text-4xl font-bold my-8 text-primary">Tickets disponibles</h1>
+        <h1 className="text-4xl font-bold my-8 text-primary">
+          Tickets disponibles
+        </h1>
         <div className="grid grid-cols-3 gap-8">
           {tickets.map((ticket) => (
             <TicketCard ticket={ticket} />

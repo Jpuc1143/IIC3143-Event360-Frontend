@@ -20,9 +20,9 @@ const formDataSchema = z.object({
   price: z.coerce.number().min(1, "El precio por ticket es requerido"),
   amount: z.coerce.number().min(1, "La cantidad de tickets es requerida"),
   domainWhiteList: z
-  .union([z.string().length(0), z.string().min(4)])
-  .optional()
-  .transform(e => e === "" ? "" : e),
+    .union([z.string().length(0), z.string().min(4)])
+    .optional()
+    .transform((e) => (e === "" ? "" : e)),
 });
 
 export default function CreateEvent() {
@@ -39,7 +39,7 @@ export default function CreateEvent() {
   const createEvent = async (newEvent: FormData) => {
     const accessToken = await getAccessTokenSilently();
     newEvent.eventId = EventId.id;
-    console.log(newEvent)
+    console.log(newEvent);
     const { data } = await postRequest("/tickettypes", newEvent, accessToken); // TODO: Cambiar a endpoint correcto
     if (data) {
       toast.success("Tipo de ticket creado exitosamente");
@@ -68,7 +68,9 @@ export default function CreateEvent() {
 
   return (
     <div className="mx-32 my-6 flex flex-col items-center">
-      <h1 className="text-primary font-bold text-4xl">Agrega un nuevo tipo de ticket</h1>
+      <h1 className="text-primary font-bold text-4xl">
+        Agrega un nuevo tipo de ticket
+      </h1>
       <form
         className="flex flex-col gap-4 my-3"
         onSubmit={handleSubmit(onSubmit)}
