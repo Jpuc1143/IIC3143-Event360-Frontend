@@ -1,8 +1,14 @@
-import event_img from "../assets/bellybeach.jpg";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation } from "react-router";
-/* import { postRequest } from "../api/queries"; */
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import es from "dayjs/locale/es";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.locale(es);
 
 export default function EventCard({ event }: { event: Event }) {
   const { isAuthenticated } = useAuth0();
@@ -19,7 +25,7 @@ export default function EventCard({ event }: { event: Event }) {
       <div className="max-w-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl">
         <img
           className="w-full h-72 object-cover"
-          src={event_img}
+          src={event.image}
           alt={event.name}
         />
         <div className="px-6 py-4">
@@ -30,7 +36,9 @@ export default function EventCard({ event }: { event: Event }) {
             <div className="flex justify-between text-sm">
               {event.organization}
             </div>
-            <span className="text-base font-bold">{event.startDate}</span>
+            <span className="text-base font-bold">
+              {dayjs(event.startDate).tz("America/Santiago").format("LLL")} hrs
+            </span>
           </div>
         </div>
         <div className="px-6 pb-2 ">

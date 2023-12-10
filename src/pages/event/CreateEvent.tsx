@@ -3,8 +3,8 @@ import { z } from "zod";
 import { toast } from "react-toastify";
 /* import { useMutation, useQueryClient } from "react-query"; */
 import { useNavigate } from "react-router";
-import { useAuth0 } from "@auth0/auth0-react";
-import { postRequest } from "../api/queries";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { postRequest } from "../../api/queries";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Dayjs } from "dayjs";
 
@@ -51,7 +51,7 @@ const formDataSchema = z
     path: ["startDate", "endDate"],
   });
 
-export default function CreateEvent() {
+function CreateEvent() {
   const {
     register,
     control,
@@ -229,3 +229,5 @@ export default function CreateEvent() {
     </div>
   );
 }
+
+export default withAuthenticationRequired(CreateEvent);
