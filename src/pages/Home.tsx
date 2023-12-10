@@ -1,11 +1,8 @@
 import SearchBar from "../components/SearchBar";
 import main_img from "../assets/party.jpeg";
-import Events from "./Events";
-
+import Events from "./event/Events";
 
 export default function Home() {
-
-
   return (
     <div className="mx-16 my-8">
       <div className="flex flex-col items-center relative mb-16">
@@ -20,8 +17,7 @@ export default function Home() {
         />
         <SearchBar />
       </div>
-      <Events/>
-      
+      <Events />
     </div>
   );
 }

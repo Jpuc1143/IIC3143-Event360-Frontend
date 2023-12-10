@@ -3,9 +3,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "../components/Loading/Loading";
 import { useParams, useNavigate } from "react-router";
 import { getRequest, postRequest } from "../api/queries";
+import { useLocation } from "react-router-dom";
 
 export default function PaymentMock() {
   const { id } = useParams();
+  const { state } = useLocation();
+  console.log("state", state);
   const navigate = useNavigate();
   const { getAccessTokenSilently } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
@@ -19,17 +22,20 @@ export default function PaymentMock() {
 
   useEffect(() => {
     const postOrder = async () => {
-      try {
-        const accessToken = await getAccessTokenSilently();
-        await postRequest(`/tickets`, {}, accessToken);
-      } catch (error) {
-        console.log(error);
+      if (!isLoading) {
+        try {
+          const accessToken = await getAccessTokenSilently();
+          await postRequest(`/tickets`, { ticketTypeId: id }, accessToken);
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
+
     const getEvent = async () => {
       try {
         const accessToken = await getAccessTokenSilently();
-        const event = await getRequest(`/events/${id}`, accessToken);
+        const event = await getRequest(`/events/${state.eventId}`, accessToken);
         console.log(event);
         setEventName(event.data.name);
       } catch (error) {
@@ -38,7 +44,7 @@ export default function PaymentMock() {
     };
     postOrder();
     getEvent();
-  }, [id, getAccessTokenSilently]);
+  }, [id, getAccessTokenSilently, state.eventId, isLoading]);
 
   return (
     <div className="">
@@ -62,7 +68,9 @@ export default function PaymentMock() {
           <div className="flex flex-row items-center gap-8">
             {/* TODO: Poner las rutas correctas cuando esten */}
             <button
-              onClick={() => navigate(`/events/${id}`, { replace: true })}
+              onClick={() =>
+                navigate(`/view-event/${state.eventId}`, { replace: true })
+              }
               className="w-32 h-8 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:"
             >
               Ver evento

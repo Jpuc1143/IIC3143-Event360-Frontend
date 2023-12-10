@@ -3,16 +3,17 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
-import Events from "./pages/Events";
-import CreateEvent from "./pages/CreateEvent";
+import Events from "./pages/event/Events";
+import CreateEvent from "./pages/event/CreateEvent";
 import PaymentMock from "./pages/PaymentMock";
 import Tickets from "./pages/Tickets";
 import Orders from "./pages/Orders";
 import Profile from "./pages/user/index";
 import Footer from "./components/Footer";
-import EditEvent from "./pages/EditEvent";
-import ShowEvent from "./pages/ShowEvent";
+import EditEvent from "./pages/event/EditEvent";
+import ShowEvent from "./pages/event/ShowEvent";
 import CreateTicketType from "./pages/CreateTicketType";
+import VerifyTicket from "./pages/VerifyTicket";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Requests from "./pages/Requests";
@@ -47,6 +48,7 @@ function App() {
         <Route path="/payment/:id" element={<PaymentMock />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/requests" element={<Requests />} />
+        <Route path="/verify-ticket/:id" element={<VerifyTicket />} />
       </Routes>
       <Footer />
     </BrowserRouter>

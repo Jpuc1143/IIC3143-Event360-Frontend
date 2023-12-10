@@ -1,7 +1,9 @@
 interface TicketType {
   id: number;
-  event_id: number;
+  name: string;
+  eventId: number;
   price: number;
   amount: number;
+  ticketsLeft: number;
   domainWhitelist: string;
 }

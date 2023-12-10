@@ -1,7 +1,7 @@
-import EventCard from "../components/EventCard";
+import EventCard from "../../components/EventCard";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getRequest } from "../api/queries";
+import { getRequest } from "../../api/queries";
 import { useLocation } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 /* import { access } from "fs"; */
@@ -33,7 +33,7 @@ export default function Events() {
           setEvents(data);
           setEventsToShow(data.slice(firstIndex, lastIndex));
           setNpage(Math.ceil(data.length / eventsPerPage));
-        };
+        }
       };
       getEvents();
     } else if (pathname === "/my-organized-events") {
@@ -44,10 +44,10 @@ export default function Events() {
           accessToken,
         );
         if (data) {
-          setEvents(data)
+          setEvents(data);
           setEventsToShow(data.slice(firstIndex, lastIndex));
           setNpage(Math.ceil(data.length / eventsPerPage));
-        };
+        }
       };
       getEvents();
     } else {
@@ -65,12 +65,11 @@ export default function Events() {
   }, [pathname, getAccessTokenSilently, firstIndex, lastIndex, npage]);
 
   const nextPage = () => {
-    if (currentPage < npage ) {
+    if (currentPage < npage) {
       setCurrentPage(currentPage + 1);
       setFirstIndex(firstIndex + eventsPerPage);
       setLastIndex(lastIndex + eventsPerPage);
       setEventsToShow(events.slice(firstIndex, lastIndex));
-      
     }
   };
 
@@ -100,25 +99,22 @@ export default function Events() {
         {eventsToShow.map((event) => (
           <EventCard event={event} key={event.id} />
         ))}
-
       </div>
       <nav className="mx-auto mt-24">
-          <ul className="flex gap-6">
-            <li className="page-item">
-              <button className="page-link" onClick={prePage}>
-                Anterior
-              </button>
-            </li>
-            <li>
-              {currentPage}
-            </li>
-            <li className="page-item">
-              <button className="page-link" onClick={nextPage}>
-                Siguiente
-              </button>
-            </li>
-          </ul>
-        </nav>
+        <ul className="flex gap-6">
+          <li className="page-item">
+            <button className="page-link" onClick={prePage}>
+              Anterior
+            </button>
+          </li>
+          <li>{currentPage}</li>
+          <li className="page-item">
+            <button className="page-link" onClick={nextPage}>
+              Siguiente
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 }
