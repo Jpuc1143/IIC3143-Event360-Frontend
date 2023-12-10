@@ -1,10 +1,10 @@
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import { getRequest } from "../api/queries";
+import { getRequest } from "../../api/queries";
 import { Link } from "react-router-dom";
-import TicketTypeCard from "../components/TicketTypeCard";
+import TicketTypeCard from "../../components/TicketTypeCard";
 import { useNavigate } from "react-router";
-import changeDateFormat from "../utils/changeDateFormat";
+import changeDateFormat from "../../utils/changeDateFormat";
 
 export default function Event() {
   const navigate = useNavigate();

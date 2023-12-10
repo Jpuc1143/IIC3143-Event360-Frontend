@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import { postRequest } from "../api/queries";
+import { postRequest } from "../../api/queries";
 import { useRef } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
-export default function EditEvent() {
+function EditEvent() {
   const { getAccessTokenSilently } = useAuth0();
   const notificationInputRef = useRef<any>(null);
 
@@ -32,3 +32,5 @@ export default function EditEvent() {
     </div>
   );
 }
+
+export default withAuthenticationRequired(EditEvent);
