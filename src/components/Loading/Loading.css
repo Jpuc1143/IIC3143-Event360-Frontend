@@ -1,0 +1,25 @@
+@keyframes moveAndWobble {
+  0% {
+    transform: translateX(-100px) rotate(20deg);
+  }
+  25% {
+    transform: translateX(-50px) rotate(-20deg);
+  }
+  50% {
+    transform: translateX(0px) rotate(20deg);
+  }
+  75% {
+    transform: translateX(50px) rotate(-20deg);
+  }
+  100% {
+    transform: translateX(100px) rotate(20deg);
+  }
+}
+
+.animate-moveAndWobble {
+  animation: moveAndWobble 3s linear infinite;
+}
+
+.custom-height {
+  height: 80vh;
+}

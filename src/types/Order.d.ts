@@ -1,6 +1,6 @@
 interface Order {
-    id: number;
-    status: string,
-    price: number,
-    //ticket: TicketType,
+  id: number;
+  status: string;
+  price: number;
+  //ticket: TicketType,
 }

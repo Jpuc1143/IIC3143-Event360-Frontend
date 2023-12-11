@@ -11,13 +11,11 @@ export default function TicketCard({ ticket }: { ticket: TicketType }) {
       <img alt="" className="w-full" src={ticket_img} />
       <div className="px-6 py-4">
         <div className="mb-2">
-          <h3 className="font-bold text-xl text-primary-dark">{ticket.name}</h3>
+          <h3 className="font-bold text-xl text-primary-dark">{ticket.id}</h3>
           <div className="flex justify-between text-sm">
             Precio: ${ticket.price}
           </div>
-          <div className="text-base font-bold">
-            Restantes: {ticket.ticketsLeft}/{ticket.amount}
-          </div>
+          <div className="text-base font-bold">Restantes: {ticket.amount}</div>
           {ticket.domainWhitelist !== "" &&
             ticket.domainWhitelist !== undefined && (
               <div className="text-base font-bold">
@@ -29,15 +27,16 @@ export default function TicketCard({ ticket }: { ticket: TicketType }) {
       {isAuthenticated && (
         <div className="grid items-center mb-4 mx-6">
           <button
-            onClick={() =>
-              navigate(`/payment/${ticket.id}`, {
-                replace: true,
-                state: { eventId: ticket.eventId },
-              })
-            }
+            onClick={() => navigate(`/payment/${ticket.id}`, { replace: true })}
             className="w-32 h-8 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:"
           >
-            Comprar ticket
+            Editar
+          </button>
+          <button
+            onClick={() => navigate(`/payment/${ticket.id}`, { replace: true })}
+            className="w-32 h-8 bg-primary hover:bg-primary-dark text-white rounded-full font-bold hover:"
+          >
+            Borrar
           </button>
         </div>
       )}
