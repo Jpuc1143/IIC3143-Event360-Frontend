@@ -7,7 +7,6 @@ import Events from "./pages/event/Events";
 import CreateEvent from "./pages/event/CreateEvent";
 import PaymentMock from "./pages/PaymentMock";
 import Tickets from "./pages/Tickets";
-import Orders from "./pages/Orders";
 import Profile from "./pages/user/index";
 import Footer from "./components/Footer";
 import EditEvent from "./pages/event/EditEvent";

@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { getRequest } from "../../api/queries";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import TicketTypeCard from "../../components/TicketTypeCard";
-import { useNavigate } from "react-router";
 import changeDateFormat from "../../utils/changeDateFormat";
 
 export default function Event() {
