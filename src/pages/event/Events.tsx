@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 import { getRequest } from "../../api/queries";
 import { useLocation } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
-/* import { access } from "fs"; */
 
 export default function Events() {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<any[]>([]);
   const { pathname } = useLocation();
 
   const title =
@@ -23,7 +22,9 @@ export default function Events() {
       const getEvents = async () => {
         const accessToken = await getAccessTokenSilently();
         const { data } = await getRequest("/users/me/events", accessToken);
-        if (data) setEvents(data);
+        if (data) {
+          setEvents(data);
+        }
       };
       getEvents();
     } else if (pathname === "/my-organized-events") {
@@ -59,9 +60,19 @@ export default function Events() {
         </div>
       )}
       <div className="grid grid-cols-3 gap-8">
-        {events.map((event) => (
-          <EventCard event={event} />
-        ))}
+        {events.map((datum) => {
+          if (pathname === "/my-events" && datum.ticketType !== undefined) {
+            return (
+              <EventCard
+                key={Math.random()}
+                event={datum.ticketType.event}
+                qrSecret={datum.secret}
+              />
+            );
+          } else {
+            return <EventCard event={datum} />;
+          }
+        })}
       </div>
     </div>
   );
