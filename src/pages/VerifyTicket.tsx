@@ -52,17 +52,19 @@ export default function Event() {
   }
 
   return (
-    <div className="mx-auto w-[300px]">
-      <h2>Verificar Ticket</h2>
-      <QrReader
-        onResult={(result, error) => {
-          if (!!result) {
-            getTicket(result.getText());
-          }
-        }}
-        constraints={{}}
-      />
-      <div>
+    <div className="mx-auto w-full flex flex-col items-center">
+      <h2 className="text-primary-dark font-bold text-4xl">Verificar Ticket</h2>
+      <div className="mx-auto w-[300px]">
+        <QrReader
+          onResult={(result, error) => {
+            if (!!result) {
+              getTicket(result.getText());
+            }
+          }}
+          constraints={{}}
+        />
+      </div>
+      <div className="text-black text-lg mb-12">
         {ticket === undefined ? "Muestre un código QR" : null}
         {ticket === null ? "Código invalido o no pertenece a evento" : null}
         {ticket !== undefined && ticket !== null ? ticketJsx : null}

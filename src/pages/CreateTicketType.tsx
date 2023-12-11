@@ -118,7 +118,7 @@ export default function CreateEvent() {
             className="bg-secondary text-white font-bold text-lg rounded-full px-5 py-2"
             type="submit"
           >
-            Crear Evento
+            Crear Ticket
           </button>
           <button
             className="bg-slate-400 text-white font-bold text-lg rounded-full px-5 py-2"

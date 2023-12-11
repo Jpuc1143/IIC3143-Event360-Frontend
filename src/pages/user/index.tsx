@@ -1,8 +1,8 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { getRequest, patchRequest } from "../../api/queries";
 
-export default function Profile() {
+function Profile() {
   const [userEvents, setUserEvents] = useState([]);
   const [isOrganizator, setIsOrganizator] = useState("");
   const { user, getAccessTokenSilently } = useAuth0();
@@ -91,3 +91,5 @@ export default function Profile() {
     </div>
   );
 }
+
+export default withAuthenticationRequired(Profile);

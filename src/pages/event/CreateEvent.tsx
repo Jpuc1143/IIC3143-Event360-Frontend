@@ -60,7 +60,12 @@ function CreateEvent() {
     watch,
   } = useForm<FormData>();
   const navigate = useNavigate();
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, user } = useAuth0();
+  // const isOrganizer = cookies.get(isOrganizer)
+  if (user?.organizer) {
+    alert("No tienes permitido ver esta página");
+    navigate("/events");
+  }
 
   const createEvent = async (newEvent: FormData) => {
     const accessToken = await getAccessTokenSilently();
@@ -131,9 +136,9 @@ function CreateEvent() {
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-secondary"
           >
             <option>Elige una modalidad</option>
-            <option value="presencial">Presencial</option>
-            <option value="online">Online</option>
-            <option value="hybrid">Híbrido</option>
+            <option value="Presencial">Presencial</option>
+            <option value="Online">Online</option>
+            <option value="Híbrido">Híbrido</option>
           </select>
         </div>
         <div className="flex flex-col">
