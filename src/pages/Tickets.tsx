@@ -1,12 +1,10 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import TicketCard from "../components/TicketCard";
 import { useEffect, useState } from "react";
 import { getRequest } from "../api/queries";
 import { useParams } from "react-router";
-/* import { useAuth0 } from "@auth0/auth0-react"; */
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
-export default function Tickets() {
-  /* const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0(); */
+function Tickets() {
   const { id } = useParams();
   const { getAccessTokenSilently } = useAuth0();
 
@@ -40,3 +38,5 @@ export default function Tickets() {
     </div>
   );
 }
+
+export default withAuthenticationRequired(Tickets);

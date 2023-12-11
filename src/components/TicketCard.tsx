@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 export default function TicketCard({ ticket }: { ticket: TicketType }) {
   const { isAuthenticated } = useAuth0();
   const navigate = useNavigate();
-  console.log(ticket);
   /* alt  ticket.name ???? */
   return (
     <div className="max-w-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl">
