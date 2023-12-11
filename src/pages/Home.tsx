@@ -1,20 +1,8 @@
-import EventCard from "../components/EventCard";
 import SearchBar from "../components/SearchBar";
 import main_img from "../assets/party.jpeg";
-import { useEffect, useState } from "react";
-import { getRequest } from "../api/queries";
+import Events from "./event/Events";
 
 export default function Home() {
-  const [events, setEvents] = useState<Event[]>([]);
-
-  useEffect(() => {
-    const getEvents = async () => {
-      const { data } = await getRequest("/events", "token");
-      if (data) setEvents(data);
-    };
-    getEvents();
-  }, []);
-
   return (
     <div className="mx-16 my-8">
       <div className="flex flex-col items-center relative mb-16">
@@ -29,14 +17,7 @@ export default function Home() {
         />
         <SearchBar />
       </div>
-      <div className="mx-32">
-        <h1 className="text-4xl font-bold my-8 text-primary">Eventos</h1>
-        <div className="grid grid-cols-3 gap-8">
-          {events.map((event) => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </div>
-      </div>
+      <Events />
     </div>
   );
 }
