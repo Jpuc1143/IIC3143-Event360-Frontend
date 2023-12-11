@@ -5,16 +5,25 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import es from "dayjs/locale/es";
+import QRCode from "qrcode";
+import { useState, useEffect } from "react";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.locale(es);
 
-export default function EventCard({ event }: { event: Event }) {
+export default function EventCard({ event, qrSecret = null }: any) {
   const { isAuthenticated } = useAuth0();
   const { pathname } = useLocation();
   const redirect_path =
     pathname === "/my-organized-events" ? "/edit-event" : "/view-event";
+  const [qrURI, setQRURI] = useState("");
+
+  useEffect(() => {
+    if (qrSecret !== null) {
+      QRCode.toDataURL(qrSecret).then(setQRURI);
+    }
+  }, [qrSecret]);
 
   return (
     <Link
@@ -25,7 +34,7 @@ export default function EventCard({ event }: { event: Event }) {
       <div className="max-w-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl">
         <img
           className="w-full h-72 object-cover"
-          src={event.image}
+          src={qrSecret !== null ? qrURI : event.image}
           alt={event.name}
         />
         <div className="px-6 py-4">
