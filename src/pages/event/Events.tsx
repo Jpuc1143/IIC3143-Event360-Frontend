@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { getRequest } from "../../api/queries";
 import { useLocation } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
-/* import { access } from "fs"; */
 
 export default function Events() {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
@@ -62,9 +61,10 @@ export default function Events() {
       )}
       <div className="grid grid-cols-3 gap-8">
         {events.map((datum) => {
-          if (pathname === "/my-events") {
+          if (pathname === "/my-events" && datum.ticketType !== undefined) {
             return (
               <EventCard
+                key={Math.random()}
                 event={datum.ticketType.event}
                 qrSecret={datum.secret}
               />

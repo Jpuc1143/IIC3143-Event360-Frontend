@@ -23,7 +23,7 @@ export default function EventCard({ event, qrSecret = null }: any) {
     if (qrSecret !== null) {
       QRCode.toDataURL(qrSecret).then(setQRURI);
     }
-  }, []);
+  }, [qrSecret]);
 
   return (
     <Link
