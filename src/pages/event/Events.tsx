@@ -29,6 +29,7 @@ export default function Events() {
         const accessToken = await getAccessTokenSilently();
         const { data } = await getRequest("/users/me/events", accessToken);
         if (data) {
+          data.reverse();
           setEvents(data);
           setEventsToShow(data.slice(firstIndex, lastIndex));
           setNpage(Math.ceil(data.length / eventsPerPage));
@@ -43,6 +44,7 @@ export default function Events() {
           accessToken,
         );
         if (data) {
+          data.reverse();
           setEvents(data);
           setEventsToShow(data.slice(firstIndex, lastIndex));
           setNpage(Math.ceil(data.length / eventsPerPage));
@@ -53,6 +55,7 @@ export default function Events() {
       const getEvents = async () => {
         const { data } = await getRequest("/events", "null");
         if (data) {
+          data.reverse();
           setEvents(data);
           setEventsToShow(data.slice(firstIndex, lastIndex));
           setNpage(Math.ceil(data.length / eventsPerPage));
