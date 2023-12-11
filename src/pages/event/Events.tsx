@@ -4,17 +4,16 @@ import { useEffect, useState } from "react";
 import { getRequest } from "../../api/queries";
 import { useLocation } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
-/* import { access } from "fs"; */
 
 export default function Events() {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
-  const [events, setEvents] = useState<Event[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 6;
   const [lastIndex, setLastIndex] = useState(currentPage * eventsPerPage);
   const [firstIndex, setFirstIndex] = useState(lastIndex - eventsPerPage);
-  const [eventsToShow, setEventsToShow] = useState<Event[]>([]);
+  const [eventsToShow, setEventsToShow] = useState<any[]>([]);
   const [npage, setNpage] = useState(0);
+  const [events, setEvents] = useState<any[]>([]);
   const { pathname } = useLocation();
 
   const title =
@@ -96,9 +95,19 @@ export default function Events() {
         </div>
       )}
       <div className="grid grid-cols-3 gap-8">
-        {eventsToShow.map((event) => (
-          <EventCard event={event} />
-        ))}
+        {eventsToShow.map((datum) => {
+          if (pathname === "/my-events" && datum.ticketType !== undefined) {
+            return (
+              <EventCard
+                key={Math.random()}
+                event={datum.ticketType.event}
+                qrSecret={datum.secret}
+              />
+            );
+          } else {
+            return <EventCard event={datum} />;
+          }
+        })}
       </div>
       <nav className="mt-24 flex justify-center ">
         <ul className="inline-flex -space-x-px text-base h-10">
