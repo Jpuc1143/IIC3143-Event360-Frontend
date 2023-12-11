@@ -1,9 +1,9 @@
 const ENV = {
   dev: {
-    apiUrl: process.env.KOA_BACKEND_URL || "http://localhost:8080",
+    apiUrl: process.env.REACT_APP_KOA_BACKEND_URL || "http://localhost:8080",
   },
   prod: {
-    apiUrl: process.env.KOA_BACKEND_URL,
+    apiUrl: process.env.REACT_APP_KOA_BACKEND_URL,
   },
 };
 
