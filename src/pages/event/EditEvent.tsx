@@ -52,7 +52,7 @@ function EditEvent() {
         </button>
         <br />
         <p className="text-primary-dark font bold text-2xl">
-          Aquí puedes verificar tus tickets (MEJORAR DESCRIPCION)
+          Aquí puedes verificar tus tickets
         </p>
         <Link
           to={`/verify-ticket/${eventId}`}

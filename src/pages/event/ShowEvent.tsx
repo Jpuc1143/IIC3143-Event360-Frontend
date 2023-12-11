@@ -25,36 +25,36 @@ export default function Event() {
   }, [EventId.id]);
 
   return (
-    <div className="mt-10 mb-20 my-22 h-[500px] w-[800px] flex flex-col rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 md:flex-row mx-10">
+    <div className="mt-10 mb-20 my-96 h-[600px] w-[1600px] flex flex-col rounded-lg md:flex-row mx-auto">
       <img
-        className="h-96 w-full rounded-lg object-cover md:h-auto w-[400px] mx-auto md:mx-0"
+        className="h-96  rounded-lg object-cover w-[500px] h-[500px] mx-auto md:mx-0"
         src={event?.image}
         alt=""
       />
-      <div className="flex flex-col justify-start p-6">
+      <div className="flex flex-col justify-start p-6 whitespace-pre-wrap">
         <h1 className="mb-10 text-3xl font-bold">{event?.name}</h1>
-        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap overflow-x-auto">
+        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap  overflow-y-auto whitespace-pre-wrap">
           Descripción: {event?.description}
         </p>
-        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap overflow-x-auto">
+        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap ">
           Ubicación: {event?.location}
         </p>
-        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap overflow-x-auto">
+        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap ">
           Modalidad: {event?.eventType}
         </p>
-        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap overflow-x-auto">
+        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap ">
           Fecha de inicio: {startDate}
         </p>
-        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap overflow-x-auto">
+        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap ">
           Fecha de término: {endDate}
         </p>
-        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap overflow-x-auto">
+        <p className="mb-4 text-2xl text-neutral-800 whitespace-nowrap ">
           Organización: {event?.organization}
         </p>
         {isAuthenticated && (
           <div className="grid items-center mb-4 mx-6">
             <Link
-              className="px-8 py-2 bg-primary text-center hover:bg-primary-dark text-white rounded-full font-bold hover:"
+              className="px-8 py-2 mx-auto bg-primary text-center w-[400px] hover:bg-primary-dark text-white rounded-full font-bold hover:"
               to={{
                 pathname: `/events/${EventId.id}`,
               }}
