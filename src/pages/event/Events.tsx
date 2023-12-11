@@ -51,8 +51,7 @@ export default function Events() {
       getEvents();
     } else {
       const getEvents = async () => {
-        const accessToken = await getAccessTokenSilently();
-        const { data } = await getRequest("/events", accessToken);
+        const { data } = await getRequest("/events", "null");
         if (data) {
           setEvents(data);
           setEventsToShow(data.slice(firstIndex, lastIndex));
